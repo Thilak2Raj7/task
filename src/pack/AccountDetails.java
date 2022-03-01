@@ -1,21 +1,15 @@
 package pack;
 
-public class AccountDetails {
-	private int accountId;
+import java.io.Serializable;
+
+public class AccountDetails implements Serializable  {
+   private int accountId=100;
+	
 	private  long accountNumber;
-	private  double accountBalance;
+	private  int accountBalance=1000;
 	private  String branch;
 	private  int customerId;
-	
-	
-	
-	public int getAccountId() {
-		return accountId;
-	}
-	
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
-	}
+	private  boolean accountStatus=true;
 	
 	public long getAccountNumber() {
 		return accountNumber;
@@ -23,41 +17,53 @@ public class AccountDetails {
 	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-	public double getAccountBalance() {
+	public int getAccountBalance() {
 		return accountBalance;
 	}
-	public void setAccountBalance(double accountBalance) {
+	public  void setAccountBalance(int accountBalance) {
 		this.accountBalance = accountBalance;
 	}
 	public String getBranch() {
 		return branch;
 	}
-	public void setBranch(String branch) {
+   public void setBranch(String branch) {
 		this.branch = branch;
 	}
-	public int getCustomerId() {
+	public  int getCustomerId() {
 		return customerId;
 	}
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 
+	public boolean isAccountStatus() {
+		return accountStatus;
+	}
+	public int getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
+	public void setAccountStatus(boolean accountStatus) {
+		this.accountStatus = accountStatus;
+	}
 	@Override
 	public String toString() {
-		return "[accountId=" + accountId + ", accountNumber=" + accountNumber + ", accountBalance="
-				+ accountBalance + ", branch=" + branch + ", customerId=" + customerId + "]";
+		return "AccountDetails [accountId=" + accountId + ", accountNumber=" + accountNumber + ", accountBalance="
+				+ accountBalance + ", branch=" + branch + ", customerId=" + customerId + ", accountStatus="
+				+ accountStatus + "]";
 	}
 	
 	
 	
 }
-	/*private String accountId;  
 	
-	public String getAccountId() {
-		return accountId;
-	}
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}*/
+
 	
+	
+	
+	
+
 	
