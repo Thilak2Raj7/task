@@ -1,5 +1,8 @@
+<%@page import="java.util.Map"%>
+<%@page import="pack.AccountDetails"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,20 +47,35 @@ background-size:cover;
 <jsp:include page="Sidebar.jsp"/>
 <table>
 <tr>
-<th> customerId</th>
+
 <th> accountId</th>
 <th> balance</th>
 <th>branch</th>
+<th>customerId </th>
+<th> status</th>
 <th>CreateAccount</th>
 </tr>
-<td> 1</td>
-<td>101</td>
-<td>1000 </td>
-<td> Madurai</td>
-<td><a href=AddAccount.jsp>AddAccount</a>
+
+
+<c:forEach items="${accountMap}" var="current">
+    <c:forEach items="${current.value}" var="current1"> 
+    <tr>
+       <td><input type="checkbox" name="name1" /> </td>
+      <td><c:out value="${current.key}"></c:out></td>
+      <td><c:out value="${current1.key}"></c:out></td>
+       <td><c:out value="${current1.value.getAccountBalance()}" ></c:out></td>
+       <td><c:out value="${current1.value.getBranch()}" ></c:out></td>
+       <td><c:out value="${current1.value.getCustomerId()}" ></c:out></td>
+       <td><c:out value="${current1.value.isAccountStatus()}" ></c:out></td>
+      
+    </tr>
+  </c:forEach>
+ </c:forEach>
 
 </table>
-<a href=AddCustomer.jsp>AddCustomer</a>
+<a href=AddAccount.jsp>AddAccount</a>
+
+
 
 </body>
 </html>

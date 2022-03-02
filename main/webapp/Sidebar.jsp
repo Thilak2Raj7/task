@@ -18,13 +18,13 @@ text-align:left;
 </head>
 <body>
 <div>
-
-<a href="AccountDetails.jsp">Account </a> <br>
+<form action="action" method="post">
+<button type="submit" formaction="AccountServelet">Account </button> <br>
 <a href="CustomerDetails.jsp">Customer</a><br>
 <a href="AccountTransfer.jsp">AccountTransfer</a><br>
 <a href=".jsp">DepositAmount</a><br>
 <a href=".jsp">WithDrawAmount</a><br>
-
+</form>
 </div>
 </body>
 </html>

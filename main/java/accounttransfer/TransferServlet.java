@@ -42,9 +42,9 @@ public class TransferServlet extends HttpServlet {
 		String  to=request.getParameter("toAct");
 		
 		
-		RequestDispatcher rdrDispatcher=request.getRequestDispatcher("CustomerPage.jsp");
+		
+		RequestDispatcher rdrDispatcher=request.getRequestDispatcher("AccountDetails.jsp");
 		rdrDispatcher.forward(request, response);
-	}
+		
 }
-
-
+}

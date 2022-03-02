@@ -46,8 +46,8 @@ public Map<Integer,Map<Integer,AccountDetails>>  showAccountDetails() throws Exc
 Map<Integer,Map<Integer,AccountDetails>> accountMap=data.readAccountMap();
 System.out.println(accountMap);
 cache.setAccount(accountMap);
-//System.out.println(cache.getAccount());
 return accountMap;
+//System.out.println(cache.getAccount());
 }
 
 public void showAccountDetailsFromCache() throws CustomException

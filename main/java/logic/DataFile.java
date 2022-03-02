@@ -53,7 +53,7 @@ public class DataFile {
 	public void writeAccountMap(Map<Integer, Map<Integer, AccountDetails>> accountObject) throws Exception {
 		try (
 
-				FileOutputStream stream = new FileOutputStream("AccountInformation.txt");
+				FileOutputStream stream = new FileOutputStream("/home/eclipse-workspace/Level3/AccountInformation.txt");
 				ObjectOutputStream obj = new ObjectOutputStream(stream);) {
 
 			obj.writeObject(accountObject);
@@ -83,7 +83,7 @@ public class DataFile {
 
 	public Map<Integer, Map<Integer, AccountDetails>> readAccountMap() throws Exception {
 
-		File objectFile = new File("AccountInformation.txt");
+		File objectFile = new File("/home/eclipse-workspace/OnlineBanking/AccountInformation.txt");
 		Map<Integer, Map<Integer, AccountDetails>> accountMap = new HashMap<Integer, Map<Integer, AccountDetails>>();
 		if (objectFile.exists()) {
 			try (
@@ -98,6 +98,7 @@ public class DataFile {
 
 			}
 		}
+		System.out.println("this is file"+accountMap);
 		return accountMap;
 	}
 
