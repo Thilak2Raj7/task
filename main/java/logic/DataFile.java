@@ -40,7 +40,7 @@ public class DataFile {
 	
 		try (
 
-				FileOutputStream stream = new FileOutputStream("CustomerInformation.txt");
+				FileOutputStream stream = new FileOutputStream("/home/inc1/eclipse-workspace/OnlineBanking/CustomerInfo.txt");
 				ObjectOutputStream obj = new ObjectOutputStream(stream);)
 
 		{
@@ -51,9 +51,11 @@ public class DataFile {
 	}
 
 	public void writeAccountMap(Map<Integer, Map<Integer, AccountDetails>> accountObject) throws Exception {
+		
+		
 		try (
 
-				FileOutputStream stream = new FileOutputStream("/home/eclipse-workspace/Level3/AccountInformation.txt");
+				FileOutputStream stream = new FileOutputStream("/home/inc1/eclipse-workspace/OnlineBanking/AccountInfo.txt");
 				ObjectOutputStream obj = new ObjectOutputStream(stream);) {
 
 			obj.writeObject(accountObject);
@@ -64,7 +66,7 @@ public class DataFile {
 	public Map<Integer, CustomerDetails> readCustomerMap() throws Exception {
 		// File createFile=createFile(filePath,fileName);
 
-		File object = new File("CustomerInformation.txt");
+		File object = new File("/home/inc1/eclipse-workspace/OnlineBanking/CustomerInfo.txt");
 
 		Map<Integer, CustomerDetails> cusObj = new HashMap<Integer, CustomerDetails>();
 		if (object.exists()) {
@@ -74,16 +76,17 @@ public class DataFile {
 				cusObj = (Map<Integer, CustomerDetails>) obStream.readObject();
 
 				lastCustomerId = (int) obStream.readObject();
-
+				System.out.println(cusObj);
 			}
 
 		}
 		return cusObj;
+	
 	}
 
 	public Map<Integer, Map<Integer, AccountDetails>> readAccountMap() throws Exception {
 
-		File objectFile = new File("/home/eclipse-workspace/OnlineBanking/AccountInformation.txt");
+	File objectFile = new File("/home/inc1/eclipse-workspace/OnlineBanking/AccountInfo.txt");
 		Map<Integer, Map<Integer, AccountDetails>> accountMap = new HashMap<Integer, Map<Integer, AccountDetails>>();
 		if (objectFile.exists()) {
 			try (
@@ -102,27 +105,7 @@ public class DataFile {
 		return accountMap;
 	}
 
-	public int readCustomerId(String fileName) throws Exception {
-		try (
-
-				FileInputStream input = new FileInputStream(fileName);
-				ObjectInputStream obStream = new ObjectInputStream(input);) {
-
-			return lastCustomerId = (int) obStream.readObject();
-		}
-
-	}
-
-	public int readAccountId(String fileName) throws Exception // logic.lastCustomerId=lastCustomerId;
-	{
-		try (
-
-				FileInputStream input = new FileInputStream(fileName);
-				ObjectInputStream obStream = new ObjectInputStream(input);) {
-			return lastAccountId = (int) obStream.readObject();
-		}
-
-	}
+	
 
 	public void checkCustomerId(int customerId) throws Exception {
 		if (readCustomerMap().get(customerId) == null) {
@@ -147,6 +130,7 @@ public class DataFile {
 		cusInfo.setCustomerId(customerId);
 		cusObj.put(customerId, cusInfo);
 		writeCustomerMap(cusObj);
+		System.out.println(cusObj);
 		// checkCustomerStatus(customerId);
 		return cusObj;
 
@@ -188,6 +172,7 @@ public class DataFile {
 		accObj.setAccountId(accountId);
 
 		accountMap.put(accountId, accObj);
+		System.out.println(account);
 		writeAccountMap(account);
 
 		return account;

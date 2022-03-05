@@ -20,17 +20,13 @@ border:3px solid black;
 <body>
 
 <h1>Create Account</h1>
-<form  action="CreateAccountServelet"  method="post">
+<form  action="AddingNewAccount"  method="post">
 <fieldset>
 <div>
 Customer Id:<input type="text" name="Customer"><br>
-Account Id:
-<select name="Account">
-<option>101</option>
-<option>102</option>
-</select><br>
-Account Balance:<input type="text" name="Account Balance"><br>
+
 Branch:<input type="text" name="Branch"><br>
+AccountStatus:<input type="text" name="AccountStatus"><br>
 <input type="submit" value="submit" >
 </div>
 </fieldset>

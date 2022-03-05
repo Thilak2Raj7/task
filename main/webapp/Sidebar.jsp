@@ -20,7 +20,8 @@ text-align:left;
 <div>
 <form action="action" method="post">
 <button type="submit" formaction="AccountServelet">Account </button> <br>
-<a href="CustomerDetails.jsp">Customer</a><br>
+<button type="submit" formaction="CreateCustomer">Customer </button> <br>
+
 <a href="AccountTransfer.jsp">AccountTransfer</a><br>
 <a href=".jsp">DepositAmount</a><br>
 <a href=".jsp">WithDrawAmount</a><br>

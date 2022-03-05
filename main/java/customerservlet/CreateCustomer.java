@@ -1,6 +1,8 @@
 package customerservlet;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import logic.Banking;
+import pack.CustomerDetails;
 
 /**
  * Servlet implementation class CreateCustomer
@@ -36,10 +41,20 @@ public class CreateCustomer extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       String customer=request.getParameter("Customer");
-       String name=request.getParameter("Name");
-       String address=request.getParameter("Address");
-       String number=request.getParameter("MobileNumber");
+     
+		try {
+			Banking logic=new Banking();
+			
+		
+			
+		 Map <Integer,CustomerDetails> customerMap=logic.showCustomerDetails();
+		 System.out.println(customerMap);
+		 request.setAttribute("customer", customerMap);
+		 
+		
+	} catch (Exception e) {
+		System.out.println(e);
+	}
        
        RequestDispatcher rdrDispatcher=request.getRequestDispatcher("CustomerDetails.jsp");
 		rdrDispatcher.forward(request, response);

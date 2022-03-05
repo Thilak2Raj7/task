@@ -36,19 +36,13 @@ public class AccountServelet extends HttpServlet {
 		
 		Map<Integer, Map<Integer, AccountDetails>> map=logic.showAccountDetails();
 		System.out.println("map");
-		System.out.println("this is account map"+map);
+	
 		request.setAttribute("accountMap", map);
 	
 	} 
 	catch (Exception e) {
 		e.printStackTrace();
 	}
-	
-    int  accountId=Integer.parseInt(request.getParameter("accountId"));
-	int balance=Integer.parseInt(request.getParameter("Account Balance"));
-	String branch=request.getParameter("Branch");
-	int customerId=Integer.parseInt(request.getParameter("customerId"));
-    String status=request.getParameter("status");
 	
 		RequestDispatcher rdDispatcher=request.getRequestDispatcher("AccountDetails.jsp");
 		rdDispatcher.forward(request, response);

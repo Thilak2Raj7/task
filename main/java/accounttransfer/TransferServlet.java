@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import logic.Banking;
+import pack.*;
 /**
  * Servlet implementation class TransferServlet
  */
@@ -37,12 +39,10 @@ public class TransferServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 	
-		String  amount=request.getParameter("amount");
-		String  from=request.getParameter("fromAct");
-		String  to=request.getParameter("toAct");
-		
-		
-		
+		int  amount = Integer.parse(Int)(request.getParameter("amount"));
+		int  fromAccountId = Integer.parse(Int)(request.getParameter("AccountId"));
+		int  toAccountId = Integer.parse(Int)(request.getParameter("ReceiverAccountId"));
+	
 		RequestDispatcher rdrDispatcher=request.getRequestDispatcher("AccountDetails.jsp");
 		rdrDispatcher.forward(request, response);
 		

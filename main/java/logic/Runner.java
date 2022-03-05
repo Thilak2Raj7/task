@@ -108,6 +108,7 @@ String branch=scan.nextLine();
 accObj.setBranch(branch);
 
 logic.addAccount(customerId,accObj);
+
 //return accObj;
 }
 //System.out.println(accountMap);

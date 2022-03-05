@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	id="WebApp_ID" version="3.1">
+<web-app>
+  
 	<display-name>OnlineBanking</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		
+		<welcome-file>login.jsp</welcome-file>
+		
 	</welcome-file-list>
 
 	<servlet>
@@ -40,16 +35,38 @@
 	<servlet>
 		<servlet-name>createaccountservelet</servlet-name>
 
-		<servlet-class>newaccount.CreateAccountServelet</servlet-class>
+		<servlet-class>newaccount.AccountServelet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 
 		<servlet-name>createaccountservelet</servlet-name>
-<url-pattern>/CreateAccountServelet</url-pattern>
+<url-pattern>/AccountServelet</url-pattern>
 
 	</servlet-mapping>
 	
+<servlet>
+		<servlet-name>addcustomer</servlet-name>
 
+		<servlet-class>customerservlet.AddingNewCustomer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>addcustomer</servlet-name>
+<url-pattern>/AddingNewCustomer</url-pattern>
+
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>addaccount</servlet-name>
+
+		<servlet-class>newaccount.AddingNewAccount</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>addaccount</servlet-name>
+<url-pattern>/AddingNewAccount</url-pattern>
+
+	</servlet-mapping>
 </web-app>
   
   

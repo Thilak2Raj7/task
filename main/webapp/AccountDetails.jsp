@@ -1,4 +1,5 @@
 <%@page import="java.util.Map"%>
+ <%@ page import= "pack.CustomerDetails" %>
 <%@page import="pack.AccountDetails"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -45,6 +46,7 @@ background-size:cover;
 <body>
 
 <jsp:include page="Sidebar.jsp"/>
+
 <table>
 <tr>
 
@@ -53,25 +55,31 @@ background-size:cover;
 <th>branch</th>
 <th>customerId </th>
 <th> status</th>
-<th>CreateAccount</th>
 </tr>
 
 
-<c:forEach items="${accountMap}" var="current">
-    <c:forEach items="${current.value}" var="current1"> 
-    <tr>
-       <td><input type="checkbox" name="name1" /> </td>
-      <td><c:out value="${current.key}"></c:out></td>
-      <td><c:out value="${current1.key}"></c:out></td>
-       <td><c:out value="${current1.value.getAccountBalance()}" ></c:out></td>
-       <td><c:out value="${current1.value.getBranch()}" ></c:out></td>
-       <td><c:out value="${current1.value.getCustomerId()}" ></c:out></td>
-       <td><c:out value="${current1.value.isAccountStatus()}" ></c:out></td>
-      
-    </tr>
-  </c:forEach>
- </c:forEach>
+<%
+Map<Integer,Map<Integer,AccountDetails>> map=(Map)request.getAttribute("accountMap");
+ for(Integer customerKey:map.keySet())
+ {
+	Map<Integer,AccountDetails> accountMap=(Map<Integer,AccountDetails>)map.get(customerKey);
+	for(Integer accountKey:accountMap.keySet())
+	{
+	AccountDetails account=accountMap.get(accountKey);
 
+%>
+<tr>
+
+<td><% out.print(account.getAccountId());%></td>
+<td><% out.print(account.getAccountBalance());%></td>
+<td><% out.print(account.getBranch());%></td>
+<td><% out.print(account.getCustomerId());%></td>
+<td><% out.print(account.isAccountStatus());%></td>
+</tr>
+<%
+	}
+ }
+%>
 </table>
 <a href=AddAccount.jsp>AddAccount</a>
 

@@ -30,20 +30,14 @@ color:;
 <fieldSet>
 <div>
 From:<br>
+CustomerId:<input type="number"  name="CustomerId"><br>
+Account Id:<input type="number"  name="AccountId"><br>
 
-Account Id:
-<select name="fromAct">
-  <option value="1">1</option>
-    <option value="2">2</option>
-</select><br>
-amount:<input type="text"  name="amount"><br>
+amount:<input type="number"  name="amount"><br>
 To:<br>
 
-Account Id:
-<select name="toAct">
- <option  value="101">101</option>
-    <option value="102">102</option>
-    </select><br>
+CustomerId:<input type="number"  name="ReceiverCustomerId"><br>
+Account Id:<input type="number"  name="ReceiverAccountId"><br>
 <input type="submit" value="Submit">
 </div>
 </fieldSet>

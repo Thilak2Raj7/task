@@ -26,11 +26,12 @@ public class Banking {
 
 
 
-public void showCustomerDetails() throws Exception
+public Map <Integer,CustomerDetails > showCustomerDetails() throws Exception
 {
 Map<Integer, CustomerDetails> cusObj=data.readCustomerMap()	;
 System.out.println(cusObj);
 cache.setCustomer(cusObj);
+return cusObj;
 //System.out.println(cache.getCustomer());
 }
 
@@ -55,10 +56,11 @@ public void showAccountDetailsFromCache() throws CustomException
 	System.out.println(cache.getAccount());
 }
 
-public void addCustomer(CustomerDetails customer)throws Exception
+public Map <Integer,CustomerDetails > addCustomer(CustomerDetails customer)throws Exception
 {
 Map <Integer,CustomerDetails >  cusObj =data.addCustomer(customer);
-cache.addCustomer(cusObj);	
+cache.addCustomer(cusObj);
+return cusObj;
 }
 
 public  CustomerDetails getCustomerDetailsFile(int customerId)throws Exception
@@ -70,11 +72,11 @@ public  CustomerDetails getCustomerDetailsCache(int customerId)throws Exception
 	return cache.getCustomerDetails(customerId);
 }
 
-public void addAccount(int customerId,AccountDetails accObj)throws Exception
+public Map<Integer,Map<Integer,AccountDetails>> addAccount(int customerId,AccountDetails accObj)throws Exception
 {
 	 Map<Integer,Map<Integer,AccountDetails>> customerAccount=data.addAccount(customerId,accObj);
 	 cache.addAccount(customerAccount);	
-	
+	return customerAccount;
 }
  
 public  AccountDetails getAccountDetailsFile(int customerId,int accountId)throws Exception

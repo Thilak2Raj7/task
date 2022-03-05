@@ -14,13 +14,15 @@ background-size:cover;
 }
 </style>
 <body>
-<form  action="CreateCustomer"  method="post">
+<form  action="AddingNewCustomer"  method="post">
 <fieldset>
 <div>
-Customer Id:<input type="text" name="Customer"><br>
+
 customer name:<input type="text" name="Name"><br>
+Age:<input type="number" name="Age"><br>
 Address:<input type="text"  name="Address"><br>
-Mobile number:<input type="text" name="MobileNumber">
+Mobile number:<input type="number" name="MobileNumber"><br>
+Status:<input type="text" name="Status"><br>
 
 <input type="submit" value="submit" >
 </div>
