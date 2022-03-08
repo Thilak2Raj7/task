@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8"> 
-<title>Account Transfer</title>
+<title>AmountWithdrawal</title>
 </head>
 <style>
 body{
@@ -14,7 +14,7 @@ background-size:cover;
 }
 div
 {
-background-color:silver;
+background-color:white;
 }
 h1
 {
@@ -25,17 +25,13 @@ color:;
 <body>
 
 
-<h1>Amount Transfer</h1>
-<form action="TransferServlet" method="post">
+<h1>CashWithdrawal </h1>
+<form action="CashWithdrawal" method="post">
 <fieldSet>
 <div>
 
-
-
-To:<br>
-
-SenderAccountId:<input type="number"  name="SenderAccountId"><br>
 Account Id:<input type="number"  name="ReceiverAccountId"><br>
+
 amount:<input type="number"  name="amount"><br>
 <input type="submit" value="Submit">
 </div>

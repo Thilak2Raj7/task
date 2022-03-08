@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8"> 
-<title>Account Transfer</title>
+<title>Deposit</title>
 </head>
 <style>
 body{
@@ -26,15 +26,12 @@ color:;
 
 
 <h1>Amount Transfer</h1>
-<form action="TransferServlet" method="post">
+<form action="CashDeposit" method="post">
 <fieldSet>
 <div>
-
-
-
 To:<br>
 
-SenderAccountId:<input type="number"  name="SenderAccountId"><br>
+
 Account Id:<input type="number"  name="ReceiverAccountId"><br>
 amount:<input type="number"  name="amount"><br>
 <input type="submit" value="Submit">

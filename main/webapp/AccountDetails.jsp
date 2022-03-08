@@ -54,18 +54,19 @@ background-size:cover;
 <th> balance</th>
 <th>branch</th>
 <th>customerId </th>
-<th> status</th>
+<th> Update</th>
+<th>Change status</th>
 </tr>
 
 
 <%
 Map<Integer,Map<Integer,AccountDetails>> map=(Map)request.getAttribute("accountMap");
- for(Integer customerKey:map.keySet())
+ for(Integer customerId:map.keySet())
  {
-	Map<Integer,AccountDetails> accountMap=(Map<Integer,AccountDetails>)map.get(customerKey);
-	for(Integer accountKey:accountMap.keySet())
+	Map<Integer,AccountDetails> accountMap=(Map<Integer,AccountDetails>)map.get(customerId);
+	for(Integer accountId:accountMap.keySet())
 	{
-	AccountDetails account=accountMap.get(accountKey);
+	AccountDetails account=accountMap.get(accountId);
 
 %>
 <tr>
@@ -74,7 +75,8 @@ Map<Integer,Map<Integer,AccountDetails>> map=(Map)request.getAttribute("accountM
 <td><% out.print(account.getAccountBalance());%></td>
 <td><% out.print(account.getBranch());%></td>
 <td><% out.print(account.getCustomerId());%></td>
-<td><% out.print(account.isAccountStatus());%></td>
+<td><form action="Update?customerId=<%=account.getCustomerId()%>&accountId=<%=account.getAccountId()%>"method="post"><button>Edit</button></form></td>
+<td><form action="Deactivate?customerId=<%=account.getCustomerId()%>&accountId=<%=account.getAccountId()%>"method="post"><button>Edit</button></form></td>
 </tr>
 <%
 	}

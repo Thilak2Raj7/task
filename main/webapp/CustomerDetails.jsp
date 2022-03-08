@@ -48,7 +48,7 @@ margin-left:200px;
 <th> Age</th>
 <th>Address</th>
 <th>MobileNumber</th>
-<th>status</th>
+
 </tr>
 
 <%
@@ -63,7 +63,7 @@ CustomerDetails customer=customerMap.get(key);
 <td> <%out.print(customer.getAge());%></td>
 <td> <% out.print(customer.getAddress());%></td>
 <td> <%out.print(customer.getMobileNumber());%> </td>
-<td>  <%out.print(customer.isCustomerStatus()) ;%></td>
+
 </tr>
 <%
 }

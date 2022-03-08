@@ -1,26 +1,28 @@
-package accounttransfer;
+package newAccount;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.Banking;
-import pack.*;
+import pack.AccountDetails;
+
 /**
- * Servlet implementation class TransferServlet
+ * Servlet implementation class UpdateAccount
  */
-public class TransferServlet extends HttpServlet {
+//@WebServlet("/UpdateAccount")
+public class UpdateAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TransferServlet() {
+    public UpdateAccount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,25 +40,23 @@ public class TransferServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
-		//int customerId=Integer.parseInt(request.getParameter("customerId"));
-	int SenderAccountId=Integer.parseInt(request.getParameter("SenderAccountId"));
-		//int ReceiverCustomerId=Integer.parseInt(request.getParameter("ReceiverCustomerId"));
-		int ReceiverAccountId=Integer.parseInt(request.getParameter("ReceiverAccountId"));
-        int amount=Integer.parseInt(request.getParameter("amount"));
+      int accountId=Integer.parseInt(request.getParameter("AccountId"));
+		String branch=request.getParameter("Branch");
+		int customerId=Integer.parseInt(request.getParameter("CustomerId"));
+		AccountDetails accObj=new AccountDetails();
+		accObj.setAccountId(accountId);
+		accObj.setCustomerId(customerId);
+		accObj.setBranch(branch);
 		Banking logic=new Banking();
-		
-	try {
-		logic.accountTransfer(ReceiverAccountId, amount, SenderAccountId);
-		Map<Integer,Map<Integer, AccountDetails>>accountMap=logic.showAccountDetails();
-		request.setAttribute("accountMap", accountMap);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
+		try {
+			logic.updateMap(accountId,customerId,accObj);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		RequestDispatcher rdrDispatcher=request.getRequestDispatcher("AccountServelet");
 		rdrDispatcher.forward(request, response);
 		
-}
+	}
+
 }

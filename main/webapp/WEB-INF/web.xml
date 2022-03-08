@@ -67,7 +67,71 @@
 <url-pattern>/AddingNewAccount</url-pattern>
 
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>cashdeposit</servlet-name>
+
+		<servlet-class>accounttransfer.CashDeposit</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>cashdeposit</servlet-name>
+<url-pattern>/CashDeposit</url-pattern>
+
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>cashwithdraw</servlet-name>
+
+		<servlet-class>accounttransfer.CashWithdrawal</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>cashwithdraw</servlet-name>
+<url-pattern>/CashWithdrawal</url-pattern>
+
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<servlet-name>update</servlet-name>
+
+		<servlet-class>newAccount.Update</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>update</servlet-name>
+<url-pattern>/Update</url-pattern>
+
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateaccount</servlet-name>
+
+		<servlet-class>newAccount.UpdateAccount</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>updateaccount</servlet-name>
+<url-pattern>/UpdateAccount</url-pattern>
+
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>deactivate</servlet-name>
+
+		<servlet-class>newAccount.Deactivate</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>udeactivate</servlet-name>
+<url-pattern>/Deactivate</url-pattern>
+
+	</servlet-mapping>
+	
 </web-app>
+
   
   
   

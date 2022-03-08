@@ -41,6 +41,11 @@ public void showCustomerDetailsFromCache() throws Exception
 System.out.println(cache.getCustomer());
 }
 
+public void accountTransfer(int accountId,int amount,int SenderAccountId) throws Exception
+{
+	data.accounttransfer(accountId, amount,SenderAccountId);	
+}
+
 
 public Map<Integer,Map<Integer,AccountDetails>>  showAccountDetails() throws Exception
 {
@@ -78,11 +83,19 @@ public Map<Integer,Map<Integer,AccountDetails>> addAccount(int customerId,Accoun
 	 cache.addAccount(customerAccount);	
 	return customerAccount;
 }
- 
-public  AccountDetails getAccountDetailsFile(int customerId,int accountId)throws Exception
+
+public void updateMap(int accountId,int customerId,AccountDetails accObj)throws Exception
 {
-	return data.getAccountDetails(customerId, accountId);
+	data.updateAccount( accountId,customerId,accObj);
+	
 }
+ 
+public  AccountDetails getAccountDetailsFile(int customerId, int accountId)throws Exception
+{
+	return data.getAccountDetails( customerId,accountId);
+}
+
+
 public AccountDetails getAccountDetailsFromCache(int customerId,int accountId)throws Exception
 		{
 	return cache.getAccountDetails(customerId, accountId);
@@ -100,16 +113,22 @@ public Map<Integer,AccountDetails> getAccountCache(int customerId)throws Excepti
 return cache.getAccount(customerId);
 }
 
-public void  depositAmount(int customerId,int accountId,int amount)throws Exception
+public void  depositAmount(int customerId ,int accountId,int amount)throws Exception
 {
-AccountDetails accObj=data.depositAmount(customerId, accountId, amount);
+if(amount>0)
+{
+AccountDetails accObj=data.depositAmount(customerId ,accountId, amount);
 data.setDepositAmount(customerId,accountId,accObj);
 cache.depositAmount(customerId, accountId, amount);
 }
+throw new Exception("Enter valid amount");
+}
+
 
 
 public void withdrawAmount(int customerId,int accountId,int amount)throws Exception
 {
+	
 	AccountDetails accObj	=data.withdrawAmount(customerId, accountId, amount);
 	//cache.withdrawAmount(customerId,accountId,amount);
 	data.setWithdrawAmount(customerId,accountId,accObj);
@@ -136,7 +155,17 @@ public void fileCreation(String fileName) throws Exception
 	data.createFile(fileName);
 }
 
+public void deposit(int accountId,int amount) throws Exception
+{
+	data.deposit(accountId, amount);
+	
+}
 
+public void withdraw(int accountId,int amount) throws Exception
+{
+	data.withdraw(accountId, amount);
+	
+}
 
 
 

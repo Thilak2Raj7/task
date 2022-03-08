@@ -8,6 +8,8 @@ import java.util.*;
 
 import javax.management.loading.PrivateClassLoader;
 
+import org.apache.tomcat.util.net.TLSClientHelloExtractor;
+
 import CacheLayer.StoreCache;
 public class Runner { 
  Banking logic=new Banking();
@@ -295,7 +297,7 @@ e.printStackTrace();
 }
 }
 
-public static void main(String[] args) 
+public static void main(String[] args)  
 {
 Scanner scan=new Scanner(System.in);
 int operation =0;
@@ -431,6 +433,21 @@ case 16:
 	
 case 17:
 	run.getAccountCache();
+	break;
+case 18:
+	System.out.println("Enter senderaccountId");
+	int SenderAccountId=scan.nextInt();
+	System.out.println("Enter accountId");
+	int accountId=scan.nextInt();
+	System.out.println("Enter amount");
+	int amount=scan.nextInt();
+	
+	try {
+		logic.accountTransfer(accountId,amount,SenderAccountId);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 default :
 value=false;
 System.out.println("Enter the valid input!");

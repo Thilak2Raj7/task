@@ -6,9 +6,11 @@ import exception.CustomException;
 
 
 import java.io.*;
-
+import java.lang.reflect.AccessibleObject;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.jasper.tagplugins.jstl.core.If;
 
 import utilityclass.Utility;
 
@@ -197,6 +199,17 @@ public class DataFile {
 
 		return readAccountMap().get(customerId);
 	}
+	
+	public void updateAccount(int accountId,int customerId,AccountDetails accObj) throws Exception
+	{
+	Map<Integer, Map<Integer, AccountDetails>> accountMap=readAccountMap();
+
+	Map<Integer,AccountDetails> accMap=accountMap.get(customerId);
+	accMap.put(accountId, accObj);
+	accountMap.put(customerId, accMap);
+	writeAccountMap(accountMap);
+	
+	}
 
 	public AccountDetails depositAmount(int customerId, int accountId, int amount) throws Exception {
 		checkCustomerId(customerId);
@@ -234,10 +247,18 @@ public class DataFile {
 		checkStatus(accObj);
 		accountBalance = accObj.getAccountBalance();
 		checkStatus(accObj);
+		if(amount>accountBalance)
+		{
+		throw new Exception("Check balance and enter valid amount");	
+		}
+		else
+		{
+			
+		
 		accountBalance -= amount;
 
 		accObj.setAccountBalance(accountBalance);
-
+		}
 		return accObj;
 	}
 
@@ -247,6 +268,103 @@ public class DataFile {
 		writeAccountMap(accMap);
 	}
 
+	public void accounttransfer(int accountId,int amount,int SenderAccountId) throws Exception
+	{
+		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();	
+		for(Integer customerId:accMap.keySet())
+		{
+			Map<Integer,AccountDetails> accountMap=accMap.get(customerId);
+			if(accountMap.containsKey(SenderAccountId))
+			{
+				
+				AccountDetails object=accountMap.get(SenderAccountId);
+				int balance=object.getAccountBalance();
+				if(balance>amount)
+				{
+				accountBalance=balance-amount;
+						object.setAccountBalance(accountBalance);
+				 				accountMap.put(SenderAccountId, object);
+				 				accMap.put(customerId, accountMap);
+								writeAccountMap(accMap);	
+			}
+				else {
+					throw new Exception("Enter the valid amount");
+				}
+			}
+			if(accountMap.containsKey(accountId))
+			{
+			AccountDetails object=accountMap.get(accountId);
+			accountBalance=amount+object.getAccountBalance();
+					object.setAccountBalance(accountBalance);
+			 				accountMap.put(accountId, object);
+			 				accMap.put(customerId, accountMap);
+							writeAccountMap(accMap);
+			}
+			
+		}
+		
+			
+		
+	}
+	
+	public void deposit(int accountId,int amount) throws Exception
+	{
+		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();	
+		for(Integer customerId:accMap.keySet())
+		{
+			Map<Integer,AccountDetails> accountMap=accMap.get(customerId);
+			if(accountMap.containsKey(accountId))
+			{
+				if(amount>100)
+				{
+			AccountDetails object=accountMap.get(accountId);
+			accountBalance=amount+object.getAccountBalance();
+					object.setAccountBalance(accountBalance);
+			 				accountMap.put(accountId, object);
+			 				accMap.put(customerId, accountMap);
+							writeAccountMap(accMap);
+			}
+				else {
+					
+					throw new Exception("Enter the valid amount");
+			}
+			}
+		}
+	}
+	public void withdraw(int accountId,int amount) throws Exception
+	{
+		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();	
+		for(Integer customerId:accMap.keySet())
+		{
+			Map<Integer,AccountDetails> accountMap=accMap.get(customerId);
+			if(accountMap.containsKey(accountId))
+			{
+				if(amount>100)
+				{
+			
+			AccountDetails object=accountMap.get(accountId);
+			int balance=object.getAccountBalance();
+			if(balance>amount)
+			{
+			accountBalance=balance-amount;
+			
+					object.setAccountBalance(accountBalance);
+			 				accountMap.put(accountId, object);
+			 				accMap.put(customerId, accountMap);
+							writeAccountMap(accMap);
+			}
+			else {
+				
+				throw new Exception("Enter the valid amount");
+		}
+				}
+			else {
+				
+					throw new Exception("Enter the valid amount");
+			}
+			}
+		}	
+	}
 	public void changeCustomerStatus(int customerId, boolean custStatus) throws Exception {
 
 		checkCustomerId(customerId);

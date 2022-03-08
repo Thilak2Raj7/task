@@ -1,40 +1,33 @@
-package serveletpack;
-import logic.Banking;
-import pack.AccountDetails;
+package accounttransfer;
 
 import java.io.IOException;
-import java.io.ObjectInputFilter.Config;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import javax.sound.midi.Soundbank;
 
-//import org.apache.jasper.tagplugins.jstl.core.Catch;
-
+import logic.Banking;
+import pack.AccountDetails;
 
 /**
- * Servlet implementation class ServeletLogin
+ * Servlet implementation class CashDeposit
  */
-//@WebServlet("/ServeletLogin")
-public class ServeletLogin extends HttpServlet {
+//@WebServlet("/CashDeposit")
+public class CashDeposit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServeletLogin() {
+    public CashDeposit() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-   
-    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -49,34 +42,24 @@ public class ServeletLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		String name=request.getParameter("name");
-		String password=request.getParameter("password");
+	
 		
-		if(name.equals("log") && password.equals("123"))
-		{
+		int ReceiverAccountId=Integer.parseInt(request.getParameter("ReceiverAccountId"));
+        int amount=Integer.parseInt(request.getParameter("amount"));
 		Banking logic=new Banking();
 		try {
-			Map<Integer,Map<Integer, AccountDetails>> map=logic.showAccountDetails();
-			request.setAttribute("accountMap", map);
-			RequestDispatcher rdrDispatcher= request.getRequestDispatcher("home.jsp");
-			rdrDispatcher.forward(request, response);
+			logic.deposit(ReceiverAccountId, amount) ;
+			Map<Integer, Map<Integer,AccountDetails>> map=logic.showAccountDetails();
+			request.setAttribute("AccountMap", map);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		RequestDispatcher requestDispatcher=request.getRequestDispatcher("AccountServelet");
+		requestDispatcher.forward(request, response);
 		
-		
-		
-		}
-		else if(name.equals("customer") && password.equals("123"))
-		{
-			RequestDispatcher rdrDispatcher=request.getRequestDispatcher("CustomerPage.jsp");
-			rdrDispatcher.forward(request, response);
-		}
-		else {
-			RequestDispatcher rdrDispatcher= request.getRequestDispatcher("login.jsp");
-			rdrDispatcher.forward(request, response);
-		}
 	}
+	
+	
 
 }
