@@ -1,0 +1,173 @@
+package logic;
+//import java.util.HashMap;
+import java.util.Map;
+
+//import javax.management.MalformedObjectNameException;
+
+import CacheLayer.StoreCache;
+import exception.CustomException;
+import pack.AccountDetails;
+import pack.CustomerDetails;
+//import persistantLayer.Persistant;
+public class Banking {
+	//private static final CustomerDetails CustomerDetails = null;
+	DataFile data=new DataFile();
+	int customerId=0;
+	int accountId=0;
+    
+    int accountBalance=0;
+    long lastAccountNumber=0;
+    int lastCustomerId=0;
+    int lastAccountId=100;
+    CustomerDetails cusInfo=new CustomerDetails();
+    AccountDetails accInfo=new AccountDetails();
+    
+    StoreCache cache=new StoreCache();
+
+
+
+public Map <Integer,CustomerDetails > showCustomerDetails() throws Exception
+{
+Map<Integer, CustomerDetails> cusObj=data.readCustomerMap()	;
+System.out.println(cusObj);
+cache.setCustomer(cusObj);
+return cusObj;
+//System.out.println(cache.getCustomer());
+}
+
+public void showCustomerDetailsFromCache() throws Exception
+{
+
+System.out.println(cache.getCustomer());
+}
+
+public void accountTransfer(int accountId,int amount,int SenderAccountId) throws Exception
+{
+	data.accounttransfer(accountId, amount,SenderAccountId);	
+}
+
+
+public Map<Integer,Map<Integer,AccountDetails>>  showAccountDetails() throws Exception
+{
+Map<Integer,Map<Integer,AccountDetails>> accountMap=data.readAccountMap();
+System.out.println(accountMap);
+cache.setAccount(accountMap);
+return accountMap;
+//System.out.println(cache.getAccount());
+}
+
+public void showAccountDetailsFromCache() throws CustomException
+{
+	System.out.println(cache.getAccount());
+}
+
+public Map <Integer,CustomerDetails > addCustomer(CustomerDetails customer)throws Exception
+{
+Map <Integer,CustomerDetails >  cusObj =data.addCustomer(customer);
+cache.addCustomer(cusObj);
+return cusObj;
+}
+
+public  CustomerDetails getCustomerDetailsFile(int customerId)throws Exception
+{
+	return data.getCustomerDetails(customerId);
+}
+public  CustomerDetails getCustomerDetailsCache(int customerId)throws Exception
+{
+	return cache.getCustomerDetails(customerId);
+}
+
+public Map<Integer,Map<Integer,AccountDetails>> addAccount(int customerId,AccountDetails accObj)throws Exception
+{
+	 Map<Integer,Map<Integer,AccountDetails>> customerAccount=data.addAccount(customerId,accObj);
+	 cache.addAccount(customerAccount);	
+	return customerAccount;
+}
+
+public void updateMap(int accountId,int customerId,AccountDetails accObj)throws Exception
+{
+	data.updateAccount( accountId,customerId,accObj);
+	
+}
+ 
+public  AccountDetails getAccountDetailsFile(int customerId, int accountId)throws Exception
+{
+	return data.getAccountDetails( customerId,accountId);
+}
+
+
+public AccountDetails getAccountDetailsFromCache(int customerId,int accountId)throws Exception
+		{
+	return cache.getAccountDetails(customerId, accountId);
+		}
+ 
+public Map<Integer,AccountDetails> getAccountFile(int customerId)throws Exception
+{
+ return data.getAccount(customerId);
+
+}
+
+public Map<Integer,AccountDetails> getAccountCache(int customerId)throws Exception
+{
+
+return cache.getAccount(customerId);
+}
+
+public void  depositAmount(int customerId ,int accountId,int amount)throws Exception
+{
+if(amount>0)
+{
+AccountDetails accObj=data.depositAmount(customerId ,accountId, amount);
+data.setDepositAmount(customerId,accountId,accObj);
+cache.depositAmount(customerId, accountId, amount);
+}
+throw new Exception("Enter valid amount");
+}
+
+
+
+public void withdrawAmount(int customerId,int accountId,int amount)throws Exception
+{
+	
+	AccountDetails accObj	=data.withdrawAmount(customerId, accountId, amount);
+	//cache.withdrawAmount(customerId,accountId,amount);
+	data.setWithdrawAmount(customerId,accountId,accObj);
+	cache.withdrawAmount(customerId, accountId, amount);
+} 
+ 
+public void changeCustomerStatus(int customerId, boolean status) throws Exception {
+	
+data.changeCustomerStatus(customerId,  status);
+cache.changeCustomerStatus(customerId,status);
+}
+
+public void changeStatus(int customerId, int accountId, boolean status) throws Exception {
+	
+data.changeStatus(customerId, accountId, status);
+cache.changeStatus(customerId,accountId,status);
+}
+
+
+
+public void fileCreation(String fileName) throws Exception
+{
+
+	data.createFile(fileName);
+}
+
+public void deposit(int accountId,int amount) throws Exception
+{
+	data.deposit(accountId, amount);
+	
+}
+
+public void withdraw(int accountId,int amount) throws Exception
+{
+	data.withdraw(accountId, amount);
+	
+}
+
+
+
+
+}
