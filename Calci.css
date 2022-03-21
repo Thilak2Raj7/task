@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+body {
+	margin-top: 300px;
+	margin-left: 400px;
+}
+
+div {
+	background-image: linear-gradient(to bottom right, white, gray);
+}
+
+
+
+div.Box {
+	width: 400px;
+	height: 360px; opacity : 80%;
+	margin-left: 200px;
+	border: 2px solid black;
+	background-image: linear-gradient(to bottom right, white, gray);
+	opacity: 80%; margin-left : 200px; border : 2px solid black;
+	background-image : linear-gradient( to bottom right, white, gray);
+	box-shadow: 2px 2px,2px,2px;
+}
+
+input {
+	border-radius: 5px;
+	width: 320px;
+	height: 80px;
+	margin-top: 15px;
+	margin-left: 30px;
+	border: 2px solid white;
+	background-color: #888a85;
+	text-align: right;
+	font-size: 30px;
+    
+}
+
+button {
+	margin-top: 20px;
+	margin-left:15px;
+	font-size: 30px;
+	height: 40px;
+	width: 60px;
+	background-color: #729fcf;
+	opacity: 20px;
+	border-radius: 20px;
+	cursor: pointer;
+}

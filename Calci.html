@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="styleSheet" type="text/css" href="Calci.css">
+<script type="text/javascript" src="Calci.js"></script>
+<meta charset="UTF-8">
+<title>Calculator</title>
+
+</head>
+
+<body>
+
+	<div class="Box">
+		
+     <input  type="text"  name="textBox" readonly="readonly" id="displayBox">
+	
+
+	
+
+		<button id="1" onclick="display(1)"  value="1">1</button>
+		<button id="2" onclick="display(2)"  value="2">2</button>
+		<button id="3" onclick="display(3)"  value="3">3</button>
+		<button id="+"  onclick="doOperation('+')" value="+" >+</button>
+		<button   onclick="empty()"  value="On">On</button>
+		<br>
+
+		<button id="4" onclick="display(4)"  value="4">4</button>
+		<button id="5" onclick="display(5)"  value="5">5</button>
+		<button id="6" onclick="display(6)" value="6">6</button>
+		<button id="-" onclick="doOperation('-')"  value="-">-</button>
+		<button id="off" onclick="empty()" value="off">off</button>
+		<br>
+
+		<button id="7" onclick="display(7)" value="7">7</button>
+		<button id="8" onclick="display(8)" value="8">8</button>
+		<button id="9" onclick="display(9)" value="9">9</button>
+		<button id="*" onclick="doOperation('*')" value="*">x</button>
+		<button id="dot" onclick="display('.')" value=".">.</button>
+		<br>
+		<button id="clear" onclick="empty()">c</button>
+		<button id="0" onclick="display(0)">0</button>
+		<button id="=" onclick="equalSign()">=</button>
+		<button id="/" onclick="doOperation('/')">/</button>
+		<button id="√" onclick="display('√')">√</button>
+		<br>
+
+
+</div>
+</body>
+</html>
