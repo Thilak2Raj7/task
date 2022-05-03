@@ -8,7 +8,8 @@ public class Runner {
 	public static void main(String[] args)
 	{
 		Cache  obj=new Cache();
-		obj.seatAllotment();
+		
+		//obj.seatAllotment();
 		Scanner scan=new Scanner(System.in);
 		int number=0;
 		boolean value=true;
