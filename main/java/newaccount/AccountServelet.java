@@ -12,6 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
 import logic.Banking;
 import org.apache.catalina.webresources.Cache;
 import pack.AccountDetails;
@@ -29,7 +32,14 @@ public class AccountServelet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-	
+		HttpSession session=request.getSession();
+	if(session.getAttribute("Admin")==null)
+	{
+		RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+		rdDispatcher.forward(request, response);	
+	}
+		
+	else {	
 	Banking logic=new Banking();
 	try 
 	{
@@ -49,5 +59,5 @@ public class AccountServelet extends HttpServlet {
 		
 		
 	}
-
+	}
 }

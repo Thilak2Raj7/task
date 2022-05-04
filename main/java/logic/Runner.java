@@ -4,6 +4,7 @@ import pack.*;
 import exception.CustomException;
 
 import java.security.KeyStore.TrustedCertificateEntry;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.management.loading.PrivateClassLoader;
@@ -52,27 +53,28 @@ logic.addCustomer(cusInfo);
 }
 //System.out.println(cusObj);
 }
-catch (Exception e)
+catch (CustomException e)
 {
 System.out.println(e.getMessage());
 e.printStackTrace();
 }
 }
  
- private void getCustomerDetails()
+ private void getCustomerDetails() throws SQLException
  {
- try{
-	 
 System.out.println("enter the CustomerId");
 int customerId=scan.nextInt();
-System.out.println( logic.getCustomerDetailsFile(customerId));
+try {
+	System.out.println( logic.getCustomerDetailsFile(customerId));
 
 }
-catch (Exception e)
+ 
+catch (CustomException e)
 {
 System.out.println(e.getMessage());
 e.printStackTrace();
 }
+
 }
  
  private void getCustomerDetailsCache()
@@ -302,6 +304,15 @@ int operation =0;
 boolean value=true;
 Banking logic =new Banking();
 Runner run=new Runner();
+Database db=new Database();
+//try {
+//	db.createTable();
+//} catch (SQLException e1) {
+//	// TODO Auto-generated catch block
+//	e1.printStackTrace();
+//}
+
+
 while(value)
 {
 try {
@@ -323,7 +334,12 @@ run.customerDetails();
 break;
 	
 case 2:
-run.getCustomerDetails();
+	try {
+		run.getCustomerDetails();
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 break;
 	
 case 3:
@@ -448,7 +464,8 @@ case 18:
 	}
 case 19:
 	System.out.println("Enter the userId");
-	String name=scan.nextLine();
+	int name =scan.nextInt();
+	scan.nextLine();
 	System.out.println("Enter the password");
  	String password=scan.nextLine();
  

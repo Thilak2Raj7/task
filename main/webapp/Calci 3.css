@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+body {
+	margin-top: 300px;
+	margin-left: 400px;
+}
+h1
+{
+margin-left: 400px;	
+}
+
+div {
+	background-image: linear-gradient(to bottom right, white,gray);  
+ background-color: rgb(32, 74, 135); 
+}
+
+
+
+div.Box {
+	width: 420px;
+	height: 130px; opacity : 80%;
+	background-image: linear-gradient(to bottom right, white,gray); 
+	border: 3px solid black;
+	background-color: black;
+	margin-left : 200px; 
+	border-radius:3px;
+	
+}
+
+#displayBox {
+	
+	width: 400px;
+	height:60px;
+	margin-top: -1px;
+	margin-left: 5px;
+		
+	background-color:black ;
+	text-align: right;
+	font-size: 30px;
+	color:white;
+   border-top:none;
+    
+}
+
+#display2 {
+
+	width: 402px;
+	height:30px;
+	margin-top: 20px;
+	margin-left: 3px;
+	border: 2px solid rgb(186, 189, 182);
+	background-color: black;
+	text-align: right;
+	font-size: 30px;
+    border-bottom:none;
+    color:white;
+}
+
+.numbers
+ {
+ margin-top:0px;
+ margin-left:200px;
+ width: 420px;
+height: 310px;
+border: 3px solid black;
+
+}
+ 
+button {
+	
+	margin-top: 20px;
+	margin-left:18px;
+	font-size: 30px;
+	color:white;
+	height: 40px;
+	width: 60px;
+	background-color:#5c3566;
+	opacity: 20px;
+    cursor: pointer;
+  }
+  
+#equal
+{
+margin-left:18px;
+width: 225px;	
+}
+#clear
+{
+margin-left:8px;
+width:150px;
+
+}

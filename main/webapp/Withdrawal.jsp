@@ -37,6 +37,14 @@ margin-right:600px;
 
 <div class="sidebar"></div>
 <jsp:include page="Sidebar.jsp"/>
+<%
+if(session.getAttribute("Admin")==null)
+{
+	RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+	rdDispatcher.forward(request, response);	
+}
+
+%>
 <h1><center>CashWithdrawal</center> </h1>
 <div class="input">
 <form action="CashWithdrawal" method="post">

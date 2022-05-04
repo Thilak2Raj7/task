@@ -38,7 +38,7 @@ padding:15px;
 <button  type="submit"   formaction="AddCustomer.jsp"> AddCustomer</button>
 <button type="submit"     formaction="DeactivatedAccounts.jsp">DeactivatedAccounts</button>
 <button type="submit"     formaction="DeactivateCustomer.jsp">DeactivatedCustomer</button>
-<button type="submit"     formaction="login.jsp">LogOut</button>
+<button type="submit"     formaction="Logout">LogOut</button>
 </form>
 </div>
 </body>

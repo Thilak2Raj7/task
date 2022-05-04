@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import logic.Banking;
 import pack.AccountDetails;
@@ -40,6 +41,13 @@ public class UpdateAccount extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session=request.getSession();
+		if(session.getAttribute("Admin")==null)
+		{
+			RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+			rdDispatcher.forward(request, response);	
+		}
+		else {
         int accountId=Integer.parseInt(request.getParameter("AccountId"));
 		String branch=request.getParameter("Branch");
 		int customerId=Integer.parseInt(request.getParameter("CustomerId"));
@@ -58,5 +66,5 @@ public class UpdateAccount extends HttpServlet {
 		rdrDispatcher.forward(request, response);
 		
 	}
-
+	}
 }

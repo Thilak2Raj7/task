@@ -40,6 +40,14 @@ background-size:cover;
 <body>
 
 <h1> Account Details</h1>
+<%
+if(session.getAttribute("Admin")==null)
+{
+	RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+	rdDispatcher.forward(request, response);	
+}
+
+%>
 <table>
 
 <div class="head">

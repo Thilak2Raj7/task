@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import logic.Banking;
 import pack.*;
@@ -40,6 +41,13 @@ public class TransferServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		//int customerId=Integer.parseInt(request.getParameter("customerId"));
+		HttpSession session=request.getSession();
+		if(session.getAttribute("Admin")==null)
+		{
+			RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+			rdDispatcher.forward(request, response);	
+		}
+		else {
 	int SenderAccountId=Integer.parseInt(request.getParameter("SenderAccountId"));
 		//int ReceiverCustomerId=Integer.parseInt(request.getParameter("ReceiverCustomerId"));
 		int ReceiverAccountId=Integer.parseInt(request.getParameter("ReceiverAccountId"));
@@ -57,6 +65,6 @@ public class TransferServlet extends HttpServlet {
 	
 		RequestDispatcher rdrDispatcher=request.getRequestDispatcher("AccountServelet");
 		rdrDispatcher.forward(request, response);
-		
+		}	
 }
 }

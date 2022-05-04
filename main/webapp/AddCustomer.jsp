@@ -33,6 +33,14 @@ margin-left:500px;
 
 
 <body>
+<%
+if(session.getAttribute("Admin")==null)
+{
+	RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+	rdDispatcher.forward(request, response);	
+}
+
+%>
 <jsp:include page="Sidebar.jsp"/>
 <h1>Create account</h1>
 <div>

@@ -184,6 +184,50 @@
 		<servlet-name>activateCustomer</servlet-name>
 <url-pattern>/ActivateCustomer</url-pattern>
 </servlet-mapping>
+
+<servlet>
+		<servlet-name>transferAmount</servlet-name>
+
+		<servlet-class>accounttransfer.AmountTransfer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>transferAmount</servlet-name>
+<url-pattern>/AmountTransfer</url-pattern>
+</servlet-mapping>
+
+<servlet>
+		<servlet-name>createCustomer</servlet-name>
+
+		<servlet-class>customerservlet.CreateCustomer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>createCustomer</servlet-name>
+<url-pattern>/CreateCustomer</url-pattern>
+</servlet-mapping>
+
+<servlet>
+		<servlet-name>moneyTransfer</servlet-name>
+
+		<servlet-class>accounttransfer.TransferAmount</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>moneyTransfer</servlet-name>
+<url-pattern>/TransferAmount</url-pattern>
+</servlet-mapping>
+
+<servlet>
+		<servlet-name>logout</servlet-name>
+
+		<servlet-class>serveletpack.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+		<servlet-name>logout</servlet-name>
+<url-pattern>/Logout</url-pattern>
+</servlet-mapping>
 </web-app>
 
   

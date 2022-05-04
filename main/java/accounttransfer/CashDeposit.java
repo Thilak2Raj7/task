@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import logic.Banking;
 import pack.AccountDetails;
@@ -43,7 +44,13 @@ public class CashDeposit extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 	
-		
+		HttpSession session=request.getSession();
+		if(session.getAttribute("Admin")==null)
+		{
+			RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+			rdDispatcher.forward(request, response);	
+		}
+		else {
 		int ReceiverAccountId=Integer.parseInt(request.getParameter("ReceiverAccountId"));
         int amount=Integer.parseInt(request.getParameter("amount"));
 		Banking logic=new Banking();
@@ -60,6 +67,6 @@ public class CashDeposit extends HttpServlet {
 		
 	}
 	
-	
+	}
 
 }

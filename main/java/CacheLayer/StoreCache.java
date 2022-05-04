@@ -56,9 +56,14 @@ static	Map<Integer, Map<Integer, AccountDetails>> accountObject = new HashMap<In
 		}
 	}
 
-	public Map<Integer, AccountDetails> getAccount(int customerId) throws Exception {
+	public Map<Integer, AccountDetails> getAccount(int customerId) throws CustomException {
 		checkCustomerId(customerId);
-		checkCustomerStatus(customerId);
+		try {
+			checkCustomerStatus(customerId);
+		} catch (CustomException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Account doesnot exist");
+		}
 
 		return accountObject.get(customerId);
 	}
@@ -69,7 +74,7 @@ static	Map<Integer, Map<Integer, AccountDetails>> accountObject = new HashMap<In
 		}
 	}
 
-	public AccountDetails getAccountDetails(int customerId, int accountId) throws Exception {
+	public AccountDetails getAccountDetails(int customerId, int accountId) throws CustomException {
 		checkCustomerId(customerId);
 		checkCustomerStatus(customerId);
 	
@@ -80,7 +85,7 @@ static	Map<Integer, Map<Integer, AccountDetails>> accountObject = new HashMap<In
 		return accountDet.get(accountId);
 	}
 
-	public void checkCustomerStatus(int customerId) throws Exception {
+	public void checkCustomerStatus(int customerId) throws CustomException {
 		
 		CustomerDetails customer = customerObject.get(customerId);
 
@@ -93,7 +98,7 @@ static	Map<Integer, Map<Integer, AccountDetails>> accountObject = new HashMap<In
 
 	}
 
-	public void depositAmount(int customerId, int accountId, int amount) throws Exception {
+	public void depositAmount(int customerId, int accountId, int amount) throws CustomException {
 
 		AccountDetails accObj = getAccountDetails(customerId, accountId);
 		checkStatus(accObj);
@@ -111,7 +116,7 @@ static	Map<Integer, Map<Integer, AccountDetails>> accountObject = new HashMap<In
 
 	}
 
-	public void withdrawAmount(int customerId, int accountId, int amount) throws Exception {
+	public void withdrawAmount(int customerId, int accountId, int amount) throws CustomException {
 		AccountDetails accObj = getAccountDetails(customerId, accountId);
 		checkStatus(accObj);
 		if (accObj == null)
@@ -129,7 +134,7 @@ static	Map<Integer, Map<Integer, AccountDetails>> accountObject = new HashMap<In
 		accountObject.get(customerId).put(accountId, accObj);
 	}
 	
-	public void changeStatus(int customerId, int accountId, boolean status) throws Exception {
+	public void changeStatus(int customerId, int accountId, boolean status) throws CustomException {
 		AccountDetails accObj = getAccountDetails(customerId, accountId);
 
 		if (accObj == null)
@@ -148,7 +153,7 @@ static	Map<Integer, Map<Integer, AccountDetails>> accountObject = new HashMap<In
 		}
 	}
 	
-	public void changeCustomerStatus(int customerId, boolean custStatus) throws Exception {
+	public void changeCustomerStatus(int customerId, boolean custStatus) throws CustomException {
 
 		checkCustomerId(customerId);
 		//Map<Integer, CustomerDetails> cusMap=customerObject;

@@ -41,6 +41,15 @@ border:none;
 <h1>Amount Transfer</h1>
 <div class="input">
 <body>
+<%
+if(session.getAttribute("Admin")==null)
+{
+	RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+	rdDispatcher.forward(request, response);	
+}
+
+%>
+
 <form action="TransferServlet" method="post">
 
 

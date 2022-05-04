@@ -34,7 +34,14 @@ background-size:cover;
 <jsp:include page="Sidebar.jsp"/>
 </div>
 <body>
+<%
+if(session.getAttribute("Admin")==null)
+{
+	RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+	rdDispatcher.forward(request, response);	
+}
 
+%>
 <h1> Account Details</h1>
 <table>
 

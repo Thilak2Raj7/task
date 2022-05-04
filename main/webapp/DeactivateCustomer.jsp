@@ -45,7 +45,14 @@ margin-left:-200px;
 <div class="sidebar">
 <jsp:include page="Sidebar.jsp"/>
 
+<%
+if(session.getAttribute("Admin")==null)
+{
+	RequestDispatcher rdDispatcher=request.getRequestDispatcher("login.jsp");
+	rdDispatcher.forward(request, response);	
+}
 
+%>
 </div>
 <h1>CustomerDetails</h1>
 <body>

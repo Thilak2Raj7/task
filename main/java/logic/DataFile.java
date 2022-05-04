@@ -25,21 +25,26 @@ public class DataFile {
 	int lastAccountId = 100;
     int userId=0;
 	int lastUserId=0;
-	public void createFile() throws Exception {
+	public void createFile() throws CustomException {
 		
 	
 
 		File myfile = new File("UserInfo.txt");
-
+try {
 		if (myfile.createNewFile()) {
 			System.out.println("New File Created");
 		} else {
 			System.out.println("File alreaady existed");
 		}
+}
+		catch (IOException e) 
+		{
+	             throw new CustomException("File Writing is failed.");
+		}
 
 	}
 
-	public void writeCustomerMap(Map<Integer, CustomerDetails> cusObj) throws Exception {
+	public void writeCustomerMap(Map<Integer, CustomerDetails> cusObj) throws CustomException {
 
 	
 		try (
@@ -52,9 +57,13 @@ public class DataFile {
 			obj.writeObject(cusObj);
 			obj.writeObject(lastCustomerId);
 		}
+		catch (IOException e) 
+		{
+	             throw new CustomException("File Writing is failed.");
+		}
 	}
 
-	public void writeAccountMap(Map<Integer, Map<Integer, AccountDetails>> accountObject) throws Exception {
+	public void writeAccountMap(Map<Integer, Map<Integer, AccountDetails>> accountObject) throws CustomException {
 		
 		
 		try (
@@ -64,10 +73,14 @@ public class DataFile {
 
 			obj.writeObject(accountObject);
 			obj.writeObject(lastAccountId);
+		} 
+		catch (IOException e) 
+		{
+	             throw new CustomException("File Writing is failed.");
 		}
 	}
 
-	public Map<Integer, CustomerDetails> readCustomerMap() throws Exception {
+	public Map<Integer, CustomerDetails> readCustomerMap() throws CustomException {
 		// File createFile=createFile(filePath,fileName);
 
 		File object = new File("/home/inc1/eclipse-workspace/OnlineBanking/CustomerInfo.txt");
@@ -82,13 +95,20 @@ public class DataFile {
 				lastCustomerId = (int) obStream.readObject();
 				System.out.println(cusObj);
 			}
-
+			catch (IOException e) 
+			{
+		             throw new CustomException("File Writing is failed.");
+			}
+			catch (ClassNotFoundException e) 
+			{
+		             throw new CustomException("Page cannot be found");
+			}
 		}
 		return cusObj;
 	
 	}
 
-	public Map<Integer, Map<Integer, AccountDetails>> readAccountMap() throws Exception {
+	public Map<Integer, Map<Integer, AccountDetails>> readAccountMap() throws CustomException {
 
 	File objectFile = new File("/home/inc1/eclipse-workspace/OnlineBanking/AccountInfo.txt");
 		Map<Integer, Map<Integer, AccountDetails>> accountMap = new HashMap<Integer, Map<Integer, AccountDetails>>();
@@ -104,28 +124,42 @@ public class DataFile {
 				lastAccountId = (int) obStream.readObject();
 
 			}
+			catch (IOException e) 
+			{
+		             throw new CustomException("File Writing is failed.");
+			}
+			catch (ClassNotFoundException e) 
+			{
+		             throw new CustomException("Page cannot be found");
+			}
 		}
+		
 		System.out.println("this is file"+accountMap);
 		return accountMap;
 	}
 
 	
 
-	public void checkCustomerId(int customerId) throws Exception {
+	public void checkCustomerId(int customerId) throws CustomException {
 		if (readCustomerMap().get(customerId) == null) {
 			throw new CustomException("CustomerId doesnot exist");
 		}
+		
 	}
 
-	public CustomerDetails getCustomerDetails(int customerId) throws Exception {
-//CustomerDetails customerObj=new CustomerDetails();
-		// customerId=cusInfo.getCustomerId();
+	public CustomerDetails getCustomerDetails(int customerId) throws CustomException {
+try {
 		checkCustomerId(customerId);
 		checkCustomerStatus(customerId);
-		return readCustomerMap().get(customerId);
+		
 	}
+catch (CustomException e) {
+	System.out.println("Enter valid customerId");
 
-	public Map<Integer, CustomerDetails> addCustomer(CustomerDetails cusInfo) throws Exception {
+}
+return readCustomerMap().get(customerId);
+	}
+	public Map<Integer, CustomerDetails> addCustomer(CustomerDetails cusInfo) throws CustomException {
 
 		System.out.println(cusInfo);
 		Map<Integer, CustomerDetails> cusObj = readCustomerMap();
@@ -155,7 +189,7 @@ public class DataFile {
 	}
 
 	public Map<Integer, Map<Integer, AccountDetails>> addAccount(int customerId, AccountDetails accObj)
-			throws Exception {
+			throws CustomException {
 
 		checkCustomerId(customerId);
 		checkCustomerStatus(customerId);
@@ -182,7 +216,7 @@ public class DataFile {
 		return account;
 	}
 
-	public AccountDetails getAccountDetails(int customerId, int accountId) throws Exception {
+	public AccountDetails getAccountDetails(int customerId, int accountId) throws CustomException {
 		checkCustomerId(customerId);
 		checkCustomerStatus(customerId);
 		Map<Integer, Map<Integer, AccountDetails>> accountMap = readAccountMap();
@@ -195,14 +229,14 @@ public class DataFile {
 
 	}
 
-	public Map<Integer, AccountDetails> getAccount(int customerId) throws Exception {
+	public Map<Integer, AccountDetails> getAccount(int customerId) throws CustomException {
 		checkCustomerId(customerId);
 		checkCustomerStatus(customerId);
 
 		return readAccountMap().get(customerId);
 	}
 	
-	public void updateAccount(int accountId,int customerId,AccountDetails accObj) throws Exception
+	public void updateAccount(int accountId,int customerId,AccountDetails accObj) throws CustomException
 	{
 	Map<Integer, Map<Integer, AccountDetails>> accountMap=readAccountMap();
 
@@ -212,7 +246,7 @@ public class DataFile {
 	writeAccountMap(accountMap);
 	
 	}
-	public void updateCustomer(int customerId,CustomerDetails cusObj) throws Exception
+	public void updateCustomer(int customerId,CustomerDetails cusObj) throws CustomException
 	{
 	 Map<Integer,CustomerDetails >customerMap=readCustomerMap();
 
@@ -221,7 +255,7 @@ public class DataFile {
 	
 	}
 
-	public AccountDetails depositAmount(int customerId, int accountId, int amount) throws Exception {
+	public AccountDetails depositAmount(int customerId, int accountId, int amount) throws CustomException {
 		checkCustomerId(customerId);
 		checkCustomerStatus(customerId);
 		AccountDetails accObj = getAccountDetails(customerId, accountId);
@@ -238,13 +272,13 @@ public class DataFile {
 		return accObj;
 	}
 
-	public void setDepositAmount(int customerId, int accountId, AccountDetails accObj) throws Exception {
+	public void setDepositAmount(int customerId, int accountId, AccountDetails accObj) throws CustomException {
 		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();
 		accMap.get(customerId).put(accountId, accObj);
 		writeAccountMap(accMap);
 	}
 
-	public AccountDetails withdrawAmount(int customerId, int accountId, int amount) throws Exception {
+	public AccountDetails withdrawAmount(int customerId, int accountId, int amount) throws CustomException {
 		checkCustomerId(customerId);
 		checkCustomerStatus(customerId);
 
@@ -259,26 +293,23 @@ public class DataFile {
 		checkStatus(accObj);
 		if(amount>accountBalance)
 		{
-		throw new Exception("Check balance and enter valid amount");	
+		throw new CustomException("Check balance and enter valid amount");	
 		}
 		else
 		{
-			
-		
 		accountBalance -= amount;
-
-		accObj.setAccountBalance(accountBalance);
+        accObj.setAccountBalance(accountBalance);
 		}
 		return accObj;
 	}
 
-	public void setWithdrawAmount(int customerId, int accountId, AccountDetails accObj) throws Exception {
+	public void setWithdrawAmount(int customerId, int accountId, AccountDetails accObj) throws CustomException {
 		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();
 		accMap.get(customerId).put(accountId, accObj);
 		writeAccountMap(accMap);
 	}
 
-	public void accounttransfer(int accountId,int amount,int SenderAccountId) throws Exception
+	public void accounttransfer(int accountId,int amount,int SenderAccountId) throws CustomException
 	{
 		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();	
 		for(Integer customerId:accMap.keySet())
@@ -300,7 +331,7 @@ public class DataFile {
 								writeAccountMap(accMap);	
 			}
 				else {
-					throw new Exception("Enter the valid amount");
+					throw new CustomException("Enter the valid amount");
 				}
 			}
 			if(accountMap.containsKey(accountId))
@@ -320,7 +351,7 @@ public class DataFile {
 		
 	}
 	
-	public void deposit(int accountId,int amount) throws Exception
+	public void deposit(int accountId,int amount) throws CustomException
 	{
 		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();	
 		for(Integer customerId:accMap.keySet())
@@ -341,12 +372,12 @@ public class DataFile {
 			}
 				else {
 					
-					throw new Exception("Enter the valid amount");
+					throw new CustomException("Enter the valid amount");
 			}
 			}
 		}
 	}
-	public void withdraw(int accountId,int amount) throws Exception
+	public void withdraw(int accountId,int amount) throws CustomException
 	{
 		Map<Integer, Map<Integer, AccountDetails>> accMap = readAccountMap();	
 		for(Integer customerId:accMap.keySet())
@@ -373,17 +404,17 @@ public class DataFile {
 			}
 			else {
 				
-				throw new Exception("Enter the valid amount");
+				throw new CustomException("Enter the valid amount");
 		}
 				}
 			else {
 				
-					throw new Exception("Enter the valid amount");
+					throw new CustomException("Enter the valid amount");
 			}
 			}
 		}	
 	}
-	public void changeCustomerStatus(int customerId, boolean custStatus) throws Exception {
+	public void changeCustomerStatus(int customerId, boolean custStatus) throws CustomException {
 
 		checkCustomerId(customerId);
 		Map<Integer, CustomerDetails> cusMap = readCustomerMap();
@@ -397,7 +428,7 @@ public class DataFile {
 
 	}
 
-	public void checkCustomerStatus(int customerId) throws Exception {
+	public void checkCustomerStatus(int customerId) throws CustomException {
 		Map<Integer, CustomerDetails> custMap = readCustomerMap();
 		CustomerDetails customer = custMap.get(customerId);
 
@@ -417,7 +448,7 @@ public class DataFile {
 		}
 	}
 
-	public void changeStatus(int customerId, int accountId, boolean status) throws Exception {
+	public void changeStatus(int customerId, int accountId, boolean status) throws CustomException {
 		AccountDetails accObj = getAccountDetails(customerId, accountId);
 		Map<Integer, Map<Integer, AccountDetails>> accountMap = readAccountMap();
 		if (accObj == null)
@@ -444,47 +475,66 @@ public class DataFile {
 	userId=lastUserId;
     return userId;
 	}
-public void storeUserInfo(String name,String password) throws Exception
+public void storeUserInfo(Integer name,String password) throws CustomException
 {
-	    Map<Object, Object> userInfo=readUserInfoMap();
+	    Map<Integer,String > userInfo=readUserInfoMap();
 		
 		userInfo.put(name, password);
 		  writeUserInfoMap(userInfo);
 }
-	public void writeUserInfoMap(Map<Object, Object> userInfo) throws Exception {
+	public void writeUserInfoMap(  Map<Integer,String> userInfo) throws CustomException {
 
 		
 		try (
 
-				FileOutputStream stream = new FileOutputStream("/home/inc1/eclipse-workspace/OnlineBanking/UserInformation.txt");
+				FileOutputStream stream = new FileOutputStream("/home/inc1/eclipse-workspace/OnlineBanking/CustomerDB.txt");
 				ObjectOutputStream obj = new ObjectOutputStream(stream);)
-
 		{
 
 			obj.writeObject(userInfo);
 			obj.writeObject(lastUserId);
 		}
+		
+		catch(IOException e)
+		{
+		System.out.println("Enter valid userId and password");	
+		}
+		
 	}
-	public Map<Object, Object>readUserInfoMap() throws Exception {
-		File createFile=new File("/home/inc1/eclipse-workspace/OnlineBanking/UserInformation.txt");
+	public    Map<Integer,String > readUserInfoMap() throws CustomException {
+		File createFile=new File("/home/inc1/eclipse-workspace/OnlineBanking/CustomerDB.txt");
         if(!createFile.exists())
         {
-            Map<Object, Object> userInfoMap=new HashMap<Object, Object>();
-        	createFile.createNewFile();
+              Map<Integer,String > userInfoMap=new HashMap <Integer,String >();
+        	try {
+				createFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Enter valid userId and password");	
+			}
         	writeUserInfoMap(userInfoMap);
         	
         }
-		File myFile = new File("/home/inc1/eclipse-workspace/OnlineBanking/UserInformation.txt");
+		File myFile = new File("/home/inc1/eclipse-workspace/OnlineBanking/CustomerDB.txt");
 
-		Map<Object,Object> infoObj = new HashMap<Object,Object>();
+		  Map<Integer,String> infoObj = new HashMap<Integer,String >();
 			try (FileInputStream input = new FileInputStream(myFile);
 					ObjectInputStream obStream = new ObjectInputStream(input);) {
 
-				infoObj = (Map<Object,Object>) obStream.readObject();
+				infoObj = (   Map<Integer,String >) obStream.readObject();
 
 				lastUserId = (int) obStream.readObject();
 				System.out.println(infoObj);
 		}
+			catch(IOException e)
+			{
+			System.out.println("Enter valid userId and password");	
+			}
+			catch(ClassNotFoundException e)
+			{
+			System.out.println("Enter valid userId and password");	
+			}
+			
 		return infoObj;
 	
 	}
