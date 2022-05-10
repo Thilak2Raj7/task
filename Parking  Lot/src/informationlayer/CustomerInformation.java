@@ -6,7 +6,7 @@ private String name;
 private long mobileNumber;
 private int customerId;
 private float wallet=0;
-//private int customerId;
+
 public String getName() {
 	return name;
 }
@@ -35,7 +35,7 @@ public void setCustomerId(int customerId) {
 @Override
 public String toString() {
 	return "CustomerInformation [name=" + name + ", mobileNumber=" + mobileNumber +  ", wallet="
-			+ wallet +", customerId=" + customerId+"]";
+			+ wallet +"]";
 }
 }
 

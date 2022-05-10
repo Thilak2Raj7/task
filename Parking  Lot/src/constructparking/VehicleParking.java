@@ -21,7 +21,7 @@ public void  parkingPayment(int tokenNumber) throws Exception
 
 public Map<Integer, Map<String, List<ParkingSpot>>>  getSlotMap()
 {
-	return storage.getSlotMap();
+	 return storage.getSlotMap();
 }
 public void getFilledMap()
 {
@@ -40,5 +40,9 @@ public void getCustomerMap()
 public void customerCheck()
 {
 	storage.customerCheck();
+}
+public void createCustomer(int tokenNumber) throws Exception
+{
+	storage.customerDetails(tokenNumber);
 }
 }

@@ -11,6 +11,8 @@ public class SlotAllotment {
 	private int spotNumber;
 	private int floorNumber;
     private String vehicleNumber;
+    private int customerId;
+    
 	public int getFloorNumber() {
 		return floorNumber;
 	}
@@ -44,10 +46,17 @@ public class SlotAllotment {
 	public void setTime(long time) {
 		this.time = time;
 	}
+	
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
 	@Override
 	public String toString() {
 		return "SlotAllotment [vehicleType=" + vehicleType +", vehicleNumber=" + vehicleNumber + ", time=" + new Date(time) + ", spotNumber=" + spotNumber
-				+ ", floorNumber=" + floorNumber + "]";
+				+ ", floorNumber=" + floorNumber + ",customerId="+ customerId +"]";
 	}
 	
 	
