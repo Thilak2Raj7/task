@@ -1,0 +1,11 @@
+package array;
+import.java.util.*
+public class ArrayListTask{
+ 
+ public int getLength(ArrayList list){
+  int length=list.length();
+  return length;
+}
+ public Arraylist getEmptyArrayList(){
+ ArrayList() list=new ArrayList();
+ getLength(list);
