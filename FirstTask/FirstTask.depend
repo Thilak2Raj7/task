@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1654782445 source:/home/thilak-inc1491/New/FirstTask/main.cpp
+	<iostream>
+	"Vehicle.h"
+	"Car.h"
+	"Bike.h"
+
+1654782404 /home/thilak-inc1491/New/FirstTask/Vehicle.h
+	<iostream>
+
+1654782736 /home/thilak-inc1491/New/FirstTask/Car.h
+	<iostream>
+	"Vehicle.h"
+
+1654781227 /home/thilak-inc1491/New/FirstTask/Bike.h
+	<iostream>
+	"Vehicle.h"
+
