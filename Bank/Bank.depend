@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1655127481 source:/home/thilak-inc1491/Development/Bank/main.cpp
+	<iostream>
+	"HDFC.h"
+	"ICICI.h"
+	"SBI.h"
+	"IndianBank.h"
+	"Broker.h"
+
+1655124913 /home/thilak-inc1491/Development/Bank/HDFC.h
+	<iostream>
+	"Bank.h"
+	"Loan.h"
+
+1655100026 /home/thilak-inc1491/Development/Bank/Bank.h
+	<iostream>
+
+1655125040 /home/thilak-inc1491/Development/Bank/Loan.h
+	<iostream>
+
+1655124978 /home/thilak-inc1491/Development/Bank/ICICI.h
+	<iostream>
+	"Bank.h"
+	"Loan.h"
+
+1655124985 /home/thilak-inc1491/Development/Bank/SBI.h
+	<iostream>
+	"Bank.h"
+	"Loan.h"
+
+1655124991 /home/thilak-inc1491/Development/Bank/IndianBank.h
+	<iostream>
+	"Bank.h"
+	"Loan.h"
+
+1655127529 /home/thilak-inc1491/Development/Bank/Broker.h
+	<climits>
+	<iostream>
+
