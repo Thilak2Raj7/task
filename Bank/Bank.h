@@ -3,6 +3,7 @@
 
 
 # include<iostream>
+# include"Date.h"
 using namespace std;
 
 class Bank{
@@ -12,6 +13,9 @@ class Bank{
  string branchName;
  string establishedDate;
 public :
+Bank()
+{
+}
  Bank(string name,string type,string branch,string date)
  {
    bankName=name;
@@ -20,26 +24,29 @@ public :
    establishedDate=date;
  }
 
-virtual string getName()
+ virtual string getName()
 {
-
+return bankName;
 }
-virtual string getType()
+ virtual string getType()
 {
-
+return bankType;
 }
 virtual string getBranch()
 {
-
+return branchName;
 }
 
-virtual string getEstablishedDate()
+ virtual string getEstablishedDate()
 {
-
+return establishedDate;
 }
 virtual void getInfo()
 {
-
+cout<<"The bank name is  "<<getName()<<endl;
+cout<<"The bank type is  "<<getType()<<endl;
+cout<<"The branch name is "<<getBranch()<<endl;
+cout<<"The established date is "<<getEstablishedDate()<<endl;
 }
 
 };

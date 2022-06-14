@@ -6,13 +6,15 @@
 #include "Bank.h"
 #include "Loan.h"
 class SBI:public Bank,public Loan{
-public:
+private:
 string name;
 string type;
 string branch;
 string date;
-SBI(string name,string type,string branch,string date,int interest,bool gold,bool land,bool personal,string goldLoanDocuments,string landLoanDocuments,string personalLoanDocuments):
-Bank(name,type,branch,date),Loan(name,interest,gold,land,personal,goldLoanDocuments,landLoanDocuments,personalLoanDocuments)
+
+public:
+SBI(string name,string type,string branch,string date,int interest,string* loan,string* goldLoanDocuments,string* landLoanDocuments,string* personalLoanDocuments):
+Bank(name,type,branch,date),Loan(name,interest,loan,goldLoanDocuments,landLoanDocuments,personalLoanDocuments)
 {
 this->name=name;
 this->type=type;
@@ -38,12 +40,10 @@ string getEstablishedDate()
 return date;
 }
 int interest=6;
-bool gold;
-bool land;
-bool personal;
-string goldLoanDocuments;
-string landLoanDocuments;
-string personalLoanDocuments;
+string* loan;
+string* goldLoanDocuments;
+string* landLoanDocuments;
+string * personalLoanDocuments;
 
 
 
@@ -52,32 +52,25 @@ string personalLoanDocuments;
  {
  return interest;
 }
+virtual string* getAvailableLoan()
+{
 
- bool getGoldLoan()
- {
- return gold;
- }
+return loan;
+}
 
-  bool getLandLoan()
- {
- return land;
- }
 
-  bool getPersonalLoan()
- {
- return personal;
- }
 
- string getDocumentsForGoldLoan()
+
+ string* getDocumentsForGoldLoan()
  {
   return goldLoanDocuments;
  }
-string getDocumentsForLandLoan()
+string* getDocumentsForLandLoan()
 {
 return landLoanDocuments;
 }
 
-string getDocumentsForPersonalLoan()
+string* getDocumentsForPersonalLoan()
 {
 return personalLoanDocuments;
 }
@@ -85,10 +78,10 @@ return personalLoanDocuments;
 
 void getInfo()
 {
-cout<<"The bank name is  "<<getName();
-cout<<"The bank type is  "<<getType();
-cout<<"The branch name is "<<getBranch();
-cout<<"The established date is "<<getEstablishedDate();
+cout<<"The bank name is  "<<getName()<<endl;
+cout<<"The bank type is  "<<getType()<<endl;
+cout<<"The branch name is "<<getBranch()<<endl;
+cout<<"The established date is "<<getEstablishedDate()<<endl;
 }
 };
 

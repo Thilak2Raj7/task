@@ -6,48 +6,52 @@ using namespace std;
 
 class Loan{
  private:
- string name;
+ string bankName;
  int interestRate;
- string documentsForGoldLoan;
- string documentsForLandLoan;
- string documentsForPersonalLoan;
- bool goldLoan;
- bool landLoan;
- bool personalLoan;
+ string* documentsForGoldLoan;
+ string* documentsForLandLoan;
+ string* documentsForPersonalLoan;
+string* loan;
+
 public:
-Loan(string name,int interest,bool gold,bool land,bool personal,string goldLoanDocuments,string landLoanDocuments,string personalLoanDocuments)
+Loan()
 {
-name=name;
+
+}
+
+Loan(string name,int interest,string* loanDetails,string* goldLoanDocuments,string* landLoanDocuments,string* personalLoanDocuments)
+{
+bankName=name;
 interestRate=interest;
 documentsForGoldLoan=goldLoanDocuments;
 documentsForLandLoan=landLoanDocuments;
 documentsForPersonalLoan=personalLoanDocuments;
-goldLoan=gold;
-landLoan=land;
-personalLoan=personal;
+loan=loanDetails;
 }
 virtual string getName()
 {
-return name;
+return bankName;
 }
-virtual int getInterestRate(){}
 
+virtual  int getInterestRate()
+{
+return 0;
+}
+virtual string* getAvailableLoan()
+{
+return loan;
+}
 
-virtual bool getGoldLoan(){}
+virtual string* getDocumentsForGoldLoan(){
+return documentsForGoldLoan;
+}
+ virtual string* getDocumentsForLandLoan(){
+return documentsForLandLoan;
+}
 
-
-virtual  bool getLandLoan(){}
-
-
- virtual bool getPersonalLoan(){}
-
-
-virtual string getDocumentsForGoldLoan(){}
-
-virtual string getDocumentsForLandLoan(){}
-
-
-virtual string getDocumentsForPersonalLoan(){}
+ virtual string* getDocumentsForPersonalLoan(){
+return documentsForPersonalLoan;
+}
 };
 
 
