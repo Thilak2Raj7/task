@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1655395120 source:/home/thilak-inc1491/Development/ExceptionH/main.cpp
+	<iostream>
+	<stdexcept>
+	"Exception1.h"
+
+1655395150 /home/thilak-inc1491/Development/ExceptionH/Exception1.h
+
