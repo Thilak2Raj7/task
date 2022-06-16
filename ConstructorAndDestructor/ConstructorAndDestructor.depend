@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1655373121 source:/home/thilak-inc1491/Development/ConstructorAndDestructor/main.cpp
+	<iostream>
+	"Rectangle.h"
+
+1655373254 /home/thilak-inc1491/Development/ConstructorAndDestructor/Rectangle.h
+	<iostream>
+	<cmath>
+
