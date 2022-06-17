@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1655472857 source:/home/thilak-inc1491/Development/ExceptionHandling/main.cpp
+	<iostream>
+	<stdexcept>
+	"Exception.h"
+	"MyException.h"
+	"Student.h"
+	"AgeNotWithinRange.h"
+	"NameNotValidException.h"
+	"CourseNotValidException.h"
+
+1655459692 /home/thilak-inc1491/Development/ExceptionHandling/Exception.h
+	<exception>
+	"MyException.h"
+
+1655457383 /home/thilak-inc1491/Development/ExceptionHandling/MyException.h
+	<iostream>
+	<exception>
+
+1655472898 /home/thilak-inc1491/Development/ExceptionHandling/Student.h
+	"AgeNotWithinRange.h"
+	"NameNotValidException.h"
+	"CourseNotValidException.h"
+
+1655467587 /home/thilak-inc1491/Development/ExceptionHandling/AgeNotWithinRange.h
+
+1655467463 /home/thilak-inc1491/Development/ExceptionHandling/NameNotValidException.h
+
+1655468688 /home/thilak-inc1491/Development/ExceptionHandling/CourseNotValidException.h
+
