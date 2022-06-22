@@ -55,11 +55,112 @@ public class Runner {
 		obj.readFile(fileName);
 	}
 	
+	
 	public void arrangeSeats()
 	{
-		System.out.println("Enter the rows");
-		int row=scan.nextInt();
-	   obj.seatAllotment(row);
+		System.out.println("Enter the flight name");
+		String flightName=scan.nextLine();
+	int sum=0;
+	int sum1=0;
+    char[]array=obj.businessClass();
+    char[] array1=obj.economyClass();
+    int businessRow=Integer.parseInt(obj.businessRow());
+    int economyRow=Integer.parseInt(obj.economyRow());
+    
+    for(int i=0;i<array.length;i++)
+    {
+    	sum+=(int)array[i];
+    }
+    for(int j=0;j<array1.length;j++)
+    {
+    	sum+=(int)array1[j];
+    }
+    
+   //int name=65;
+	   obj.seatAllotment(businessRow,"Business",array,flightName);
+	   System.out.println("Business class is completed");
+	   obj.seatAllotment(economyRow,"Economy",array1,flightName);
+	   System.out.println("Economy class is completed");
+	
+	/*else
+	{
+		 obj.seatAllotment(businessRow,"Business",array1);
+		obj.seatAllotment(economyRow,"Economy",array);
+	}*/
+	}
+	
+	public void listDownFlights() throws FileNotFoundException, IOException
+	{
+	System.out.println("Enter the file name");
+	String fileName=scan.nextLine();
+	obj.readFlights(fileName);
+		 
+	}
+	public void searchFlights() throws FileNotFoundException, IOException
+	{
+		int search=0;
+		boolean value=true;
+		while(value)
+		{
+		try {
+			System.out.println(" Flight by choosing  source and destination press 1 or press 2 for business class flights ");
+			  search=scan.nextInt();	
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		switch(search)
+		{
+		case 1:
+			System.out.println("Enter the departure " );
+		     String departure=scan.nextLine();
+		     scan.nextLine();
+		     System.out.println("Enter the destination");
+		     String destination=scan.nextLine();
+		     
+		     obj.searchFlightsUsingPlace(departure+"-"+destination);
+		     break;
+		case 2:
+			System.out.println("Enter the class preference of flights");
+			String classType=scan.nextLine();
+			break;
+		
+		default:
+			value=false;
+		}
+		
+		
+	}
+	}
+	public void bookTicket()
+	{
+		System.out.println("Enter the flight name");
+		String flightName=scan.nextLine();
+		System.out.println("Enter the number of tickets");
+		int numberOfTickets=scan.nextInt();
+		String[] array=new String[numberOfTickets];
+		for(int i=0;i<numberOfTickets;i++)
+		{
+	    Passenger passObj=new Passenger();
+		System.out.println("Enter the name of passenger");
+		String name=scan.nextLine();
+		System.out.println("Enter the address");
+		String address=scan.nextLine();
+		System.out.println("Enter the age");
+		int age=scan.nextInt();
+		System.out.println("Enter the seat Number");
+		String seatNumber=scan.nextLine();
+		array[i]=seatNumber;
+		passObj.setAddress(address);
+		passObj.setPassengerName(name);
+		passObj.setAge(age);
+		}
+		System.out.println("Enter the meal preference");
+		boolean value=scan.nextBoolean();
+		obj.bookFlight(flightName,value,array);
+		
 	}
 	
 	public static void main(String[] args)
@@ -125,6 +226,38 @@ public class Runner {
 	case 5:
 		try {
 			run.arrangeSeats();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		break;
+	case 6:
+		try {
+		run.listDownFlights();
+			}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		break;
+	case 7:
+		try {
+		run.searchFlights();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		break;
+	case 8:
+		try {
+		run.bookTicket();
+			
 		}
 		catch(Exception e)
 		{
