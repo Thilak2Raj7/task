@@ -16,12 +16,12 @@ import BookingCenter.Seat;
 
 public class TicketBooking {
 	List<String> flightInfo=new ArrayList<String>();
-List<Seat> listObj=new ArrayList<Seat>();
-String flightList="";
+List<String> meals=new ArrayList<String>();
+String flightName="";
 int bookingId=0;
 int amountCount=0;
 //Map<String,List<Seat>> mapObj=new HashMap<String,List<Seat>>();
-Map<Integer,Seat> occupiedSeats=new HashMap<Integer,Seat>();
+Map<Integer,Map<String ,Seat>> occupiedSeats=new HashMap<Integer,Map<String,Seat>>();
 Map<Integer,Booking> booked=new HashMap<Integer,Booking>();
 Map<String ,Map<String,Seat>> seatBooking=new HashMap<String,Map <String,Seat>>();
 String storage="";	
@@ -166,7 +166,7 @@ public String economyRow()
 	return eRow;
 }
 
-public void seatArrangement(int row,String classes,char[] array,String flightName){
+public void seatArrangement(int row,String classes,char[] array){
 	
 	int count1=65;
 	int[] column=new int[array.length];
@@ -197,12 +197,13 @@ for(int j=0;j<row;j++)
 		char seat=(char)count1;
 		
 		seatObj.setSeatType("Window");
+		seatObj.setFlightName(flightName);
 	    System.out.println(String.valueOf(count));
 	    System.out.println(String.valueOf(seat));
 		seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 		
 		count1++;
-		listObj.add(seatObj);
+		//listObj.add(seatObj);
 		String seatName=seatObj.getSeatName();
 		bookTicket.put(seatName, seatObj);	
 		}
@@ -213,9 +214,10 @@ for(int j=0;j<row;j++)
 			char seat=(char)count1;
 			
 			seatObj.setSeatType("Aisle");
+			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
-			listObj.add(seatObj);
+			//listObj.add(seatObj);
 			String seatName=seatObj.getSeatName();
 			bookTicket.put(seatName, seatObj);	
 		}
@@ -224,9 +226,10 @@ for(int j=0;j<row;j++)
 			seatObj.setClassType(classes);
 			char seat=(char)count1;
 			seatObj.setSeatType("Middle");
+			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
-			listObj.add(seatObj);
+			//listObj.add(seatObj);
 			String seatName=seatObj.getSeatName();
 			bookTicket.put(seatName, seatObj);	
 	}
@@ -241,9 +244,10 @@ for(int j=0;j<row;j++)
 			seatObj.setClassType(classes);
 			char seat=(char)count1;
 			seatObj.setSeatType("Aisile");
+			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
-			listObj.add(seatObj);
+			//listObj.add(seatObj);
 			String seatName=seatObj.getSeatName();
 			bookTicket.put(seatName, seatObj);		
 		}
@@ -252,9 +256,10 @@ for(int j=0;j<row;j++)
 			seatObj.setClassType(classes);
 			char seat=(char)count1;
 			seatObj.setSeatType("Middle");
+			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
-			listObj.add(seatObj);
+			//listObj.add(seatObj);
 			String seatName=seatObj.getSeatName();
 			bookTicket.put(seatName, seatObj);	
 		}
@@ -270,9 +275,10 @@ for(int j=0;j<row;j++)
 			seatObj.setClassType(classes);
 			char seat=(char)count1;
 			seatObj.setSeatType("Aisile");
+			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
-			listObj.add(seatObj);
+			//listObj.add(seatObj);
 			String seatName=seatObj.getSeatName();
 			bookTicket.put(seatName, seatObj);	
 		}
@@ -281,9 +287,10 @@ for(int j=0;j<row;j++)
 			seatObj.setClassType(classes);
 			char seat=(char)count1;
 			seatObj.setSeatType("Window");
+			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
-			listObj.add(seatObj);
+			//listObj.add(seatObj);
 			String seatName=seatObj.getSeatName();
 			bookTicket.put(seatName, seatObj);	
 		}
@@ -292,9 +299,10 @@ for(int j=0;j<row;j++)
 			seatObj.setClassType(classes);
 			char seat=(char)count1;
 			seatObj.setSeatType("Middle");
+			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
-			listObj.add(seatObj);
+			//listObj.add(seatObj);
 			String seatName=seatObj.getSeatName();
 			bookTicket.put(seatName, seatObj);	
 		}
@@ -344,9 +352,10 @@ public void storeFlightDetails(String fileName) throws FileNotFoundException, IO
        while((store=br.read())!=-1)
        {
     	 flight+=(char) store;
-    	 System.out.println((char)store);
+    	 //System.out.println((char)store);
     	   if(store==10)
     	   {
+    		   System.out.println(flight);
     		  flightInfo.add(flight) ;
     		  flight="";
     	   }
@@ -356,38 +365,82 @@ public void storeFlightDetails(String fileName) throws FileNotFoundException, IO
 		
 		br.close();
 	}
-	System.out.println(flightList);	
+		
 }	
-public void filterFlightsUsingPlace(String place)		
+public void filterFlightsUsingPlace(String place) throws FileNotFoundException, IOException		
 {
-	
+	System.out.println(flightInfo);
+	String flight="";
 for(int i=0;i<flightInfo.size();i++)
 {
+	System.out.println("Enter the flight details");
+			
 	String details=flightInfo.get(i);
+	System.out.println("Enter the flight details"+details);
+	
+    
 	if(details.contains(place))
 	{
-		flightList+=details+" ";
-		
+	
+		  for(int j=0;j<details.length();j++)
+	      {
+	    	  if((int)details.charAt(j)==10)
+	    	  {
+	    		 
+	    		  flight=flight.trim();
+	    		  flightName=flight;
+	    		  flight+=".txt";
+	    	  }
+	    	  else
+	    	  {
+	    		  flight+=details.charAt(j);
+	    		  
+	    	  }
+	      }
+		  
+		flight="/home/thilak-inc1491/Development/FlightBooking/"+flight;
+		System.out.println("flight"+flightName);
+		//flightName+="/home/thilak-inc1491/Development/FlightBooking/"+details;
+		System.out.println(flightName);
 	}
-		
+	else
+	{
+		System.out.println("Flight is not available");
+	}
 }
-System.out.println(flightList);
+System.out.println();
+//readFile("/home/thilak-inc1491/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txt");
+readFile(flight);
+int row=Integer.parseInt(bRow);
+seatArrangement(row,"Business",array);
+availableSeats(flightName,"Business");
+if(eRow.length()!=0)
+{
+int row1=Integer.parseInt(eRow);
+seatArrangement(row1,"Economy",array);
 }
+availableSeats(flightName);
+System.out.println(flightName);
+}
+
 public int getBookingId()
 {
 	return ++bookingId;
 }
-public int amountCalculation(String seatClass,String seatType,boolean value)
+public int amountCalculation(String seatClass,String seatType,boolean value,boolean booking)
 {
-	int amount=amountCount*200;
-	
+	int amount=0;
+	if(booking)
+	{
+	amount+=amountCount*200;
+	}
 	if(seatClass.equals("Business"))
 	{
-	amount=2000;	
+	amount+=2000;	
 	}
 	if(seatClass.equals("Economy"))
 	{
-		amount=1000;
+		amount+=1000;
 	}
 	if(seatType.equals("Window") ||seatType.equals("Aisle"))
 	{
@@ -401,7 +454,7 @@ public int amountCalculation(String seatClass,String seatType,boolean value)
 	return amount;
 }
 
-public void bookFlight(String flightName,boolean value,String[] array)
+public void bookFlight(boolean value,String[] array,List<Passenger> passenger)
 {
 Map<String,Seat> bookSeat=seatBooking.get(flightName);
 int bookingId=getBookingId();
@@ -411,29 +464,45 @@ if(book==null)
 {
 book=new Booking();	
 }
-    for(int i=0;i<array.length;i++)
+Map<String ,Seat> fillSeat=occupiedSeats.get(bookingId);
+if(fillSeat== null)
+{
+	fillSeat=new HashMap<>();
+}
+
+for(int i=0;i<array.length;i++)
     {
+	
 	Seat seatObj=bookSeat.get(array[i]);
 	String seatClass=seatObj.getClassType();
 	String seatType=seatObj.getSeatType();
 	String seatName=seatObj.getSeatName();
-	book.listObj.add(seatName);
-	amount+=amountCalculation(seatClass,seatType,value);
-    occupiedSeats.put(bookingId,seatObj);
+	
+	book.list.add(seatName);
+	amount+=amountCalculation(seatClass,seatType,value,true);
+    fillSeat.put(array[i], seatObj);
     bookSeat.remove(array[i]);
     seatBooking.put(flightName, bookSeat);
+    if(value==true)
+    {
+    meals.add(seatName);
     }
-   
+    }
+     book.passengerList=passenger;
+    occupiedSeats.put(bookingId, fillSeat);
     amountCount++;
     book.setBookingId(bookingId);
     book.setMealPreference(value);
-    int index=flightList.indexOf('-');
-    String departure=flightList.substring(0,index);
-    String destination=flightList.substring(index+1);
+    int index=flightName.indexOf('-');
+    String departure=flightName.substring(0,index);
+    String destination=flightName.substring(index+1);
     book.setDeparture(departure);
     book.setDestination(destination);
     book.setAmount(amount);
     booked.put(bookingId, book);
+    System.out.println(booked);
+    System.out.println(occupiedSeats);
+    payment(bookingId);
   }
 
 public void payment(int bookingId)
@@ -442,9 +511,16 @@ Booking book=booked.get(bookingId);
 int amount=book.getAmount();
 System.out.println("The total cost of booking is"+ amount);
 }
-public void availableSeats(String flightName )
+public void availableSeats(String flightName,String className)
 {
-	System.out.println(seatBooking.get(flightName));
+	Map<String,Seat> seatObj=seatBooking.get(flightName);
+	for(Seat seats:seatObj.values())
+	{
+	System.out.print("The seat name is "+seats.getSeatName());
+	System.out.print("The seat class is"+seats.getClass());
+	System.out.print("The seat type is"+seats.getSeatType());
+	}
+	//System.out.println(seatBooking.get(flightName));
 	
 }
 public void filledSeats()
@@ -452,6 +528,84 @@ public void filledSeats()
 	System.out.println(occupiedSeats);
 	
 }
+public void ticketSummary(int bookingId)
+{
+	Booking book=booked.get(bookingId);
+	int length=book.list.size();
 
+	for(int i=0;i<length;i++)
+	{
+		
+		Passenger obj=book.passengerList.get(i);
+		String name=obj.getPassengerName();
+		int age=obj.getAge();
+		
+		String address=obj.getAddress();
+		String seatName=book.list.get(i);
+		System.out.println("Departure:"+book.getDeparture());
+		System.out.println("Destination:"+book.getDestination());
+		System.out.println("Date:"+book.getDate());
+		System.out.println("FlightName:"+book.getFlightName());
+		System.out.println("The seat Name:"+seatName);
+		System.out.println("The booking id is "+bookingId);
+		System.out.println("The name of passenger :"+name);
+		System.out.println("The age of passenger :"+age);
+		System.out.println("The address of passenger:"+address);
+	    System.out.println();
+	}
+	
+	
+	
 }
-//home/thilak-inc1491/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txt
+public void cancelTicket(int bookingId,String seatName)
+{
+Booking book=booked.get(bookingId);
+
+boolean value=book.isMealPreference();
+int amount=book.getAmount();
+System.out.println("Hi");
+	if(book.list.contains(seatName))
+	{
+		System.out.println("List"+book.list);
+		System.out.println("Hi1");
+		int index=book.list.indexOf(seatName);
+		System.out.println(index);
+		System.out.println("Hi1");
+		book.list.remove(index);
+		
+	}
+	  Map<String,Seat> filledSeat =occupiedSeats.get(bookingId);
+	  if(filledSeat.containsKey(seatName))
+	  {
+		  System.out.println("Hi");
+		  Seat seats=filledSeat.get(seatName);
+		  String classType=seats.getClassType();
+		  String seatType=seats.getSeatType();
+		  String flightName=seats.getFlightName();
+		  int amount1=amountCalculation(classType,seatType,value,false)-200;
+		  amount=amount-amount1;
+		  
+		  book.setAmount(amount);
+		  filledSeat.remove(seatName);
+		  meals.remove(seatName);
+		  Map<String,Seat> seatAvailable=seatBooking.get(flightName);
+		  seatAvailable.put(classType, seats);
+		  seatBooking.put(flightName, seatAvailable);
+		  occupiedSeats.put(bookingId, filledSeat);
+		  System.out.println(occupiedSeats);
+		  System.out.println(book.list);
+		  System.out.println(booked);
+		  System.out.println(seatBooking);
+		  System.out.println("The amount refunded for your cancellation is "+amount1);
+	  }
+}
+public void mealsOrderedSeats()
+{
+	for(int i=0;i<meals.size();i++)
+	{
+	System.out.println(i+"-"+meals.get(i));
+	}
+}
+}//home/thilak-inc1491/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txt
+///home/thilak-inc1491/Development/FlightBooking/FlightDetails.txt
+

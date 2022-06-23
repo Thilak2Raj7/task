@@ -4,7 +4,7 @@ public class Passenger {
 private String passengerName;
 private String address;
 private int age;
-private int seatNumber;
+
 public String getPassengerName() {
 	return passengerName;
 }

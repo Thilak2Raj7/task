@@ -11,7 +11,9 @@ private String destination;
 private String date;
 private boolean mealPreference=false;
 private int numberOfPassengers;
-public List<String> listObj=new ArrayList<>();
+private String flightName;
+public List<String> list=new ArrayList<>();
+public List<Passenger> passengerList=new ArrayList<>();
 public int getBookingId() {
 	return bookingId;
 }
@@ -47,6 +49,12 @@ public boolean isMealPreference() {
 }
 public void setMealPreference(boolean mealPreference) {
 	this.mealPreference = mealPreference;
+}
+public String getFlightName() {
+	return flightName;
+}
+public void setFlightName(String flightName) {
+	this.flightName = flightName;
 }
 
 @Override

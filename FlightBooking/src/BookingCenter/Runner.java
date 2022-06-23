@@ -2,7 +2,9 @@ package BookingCenter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -10,6 +12,7 @@ import java.util.Scanner;
 public class Runner {
 	ApiLayer obj=new ApiLayer();
 	Scanner scan=new Scanner(System.in);
+	//List<Passenger> passengerDetails=new ArrayList<Passenger>(); 
 	public void createFolder() throws IOException
 	{
 
@@ -77,9 +80,9 @@ public class Runner {
     }
     
    //int name=65;
-	   obj.seatAllotment(businessRow,"Business",array,flightName);
+	   obj.seatAllotment(businessRow,"Business",array);
 	   System.out.println("Business class is completed");
-	   obj.seatAllotment(economyRow,"Economy",array1,flightName);
+	   obj.seatAllotment(economyRow,"Economy",array1);
 	   System.out.println("Economy class is completed");
 	
 	/*else
@@ -136,13 +139,16 @@ public class Runner {
 	}
 	public void bookTicket()
 	{
-		System.out.println("Enter the flight name");
-		String flightName=scan.nextLine();
+		scan.nextLine();
+		
+		
 		System.out.println("Enter the number of tickets");
 		int numberOfTickets=scan.nextInt();
 		String[] array=new String[numberOfTickets];
+		List<Passenger> passengerList=new ArrayList<Passenger>();
 		for(int i=0;i<numberOfTickets;i++)
 		{
+			scan.nextLine();
 	    Passenger passObj=new Passenger();
 		System.out.println("Enter the name of passenger");
 		String name=scan.nextLine();
@@ -150,16 +156,29 @@ public class Runner {
 		String address=scan.nextLine();
 		System.out.println("Enter the age");
 		int age=scan.nextInt();
+		scan.nextLine();
 		System.out.println("Enter the seat Number");
 		String seatNumber=scan.nextLine();
 		array[i]=seatNumber;
 		passObj.setAddress(address);
 		passObj.setPassengerName(name);
 		passObj.setAge(age);
+		passengerList.add(passObj);
 		}
 		System.out.println("Enter the meal preference");
 		boolean value=scan.nextBoolean();
-		obj.bookFlight(flightName,value,array);
+		obj.bookFlight(value,array,passengerList);
+		
+	}
+	public void cancelTicket()
+	{
+		System.out.println("Enter the number of tickets you want to cancel");
+		System.out.println("Enter the booking id");
+		int bookingId=scan.nextInt();
+		scan.nextLine();
+		System.out.println("Enter the seat name");
+		String seatName=scan.nextLine();
+		obj.cancelTicket(bookingId,seatName);
 		
 	}
 	
@@ -175,7 +194,7 @@ public class Runner {
 		try {
 			System.out.println("Enter the operation to perform");
 			operation=scan.nextInt();
-			
+			scan.nextLine();
 		}
 		catch(Exception e)
 		{
@@ -257,6 +276,17 @@ public class Runner {
 	case 8:
 		try {
 		run.bookTicket();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		break;
+	case 9:
+		try {
+		run.cancelTicket();
 			
 		}
 		catch(Exception e)

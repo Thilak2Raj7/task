@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 
 
@@ -29,9 +30,9 @@ public void createFolder(String folder) throws IOException
 		ticket.readFile(fileName);
 	}
 	
-	public void seatAllotment(int row,String classes,char[] array,String flightName)
+	public void seatAllotment(int row,String classes,char[] array)
 	{
-	ticket.seatArrangement(row,classes,array,flightName);	
+	ticket.seatArrangement(row,classes,array);	
 		
 	}
 	public char[] businessClass()
@@ -59,11 +60,11 @@ public void createFolder(String folder) throws IOException
 	{
 		ticket.filterFlightsUsingPlace(place);
 	}
-	public void bookFlight(String flightName,boolean value,String[] array)
+	public void bookFlight(boolean value,String[] array,List<Passenger> passenger)
 	{
-		ticket.bookFlight(flightName,value,array);
+		ticket.bookFlight(value,array,passenger);
 	}
-	public void cancelTicket() {
-		ticket.cancelTicket();
+	public void cancelTicket(int bookingId,String seatName) {
+		ticket.cancelTicket(bookingId,seatName);
 	}
 }
