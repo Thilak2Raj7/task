@@ -127,7 +127,8 @@ public class Runner {
 		     break;
 		case 2:
 			System.out.println("Enter the class preference of flights");
-			String classType=scan.nextLine();
+			//String classType=scan.nextLine();
+			obj.filterClass("classType");
 			break;
 		
 		default:
@@ -181,10 +182,14 @@ public class Runner {
 		obj.cancelTicket(bookingId,seatName);
 		
 	}
-	
+	public void mealsOrdered()
+	{
+		obj.mealsOrdered();
+		
+	}
 	public static void main(String[] args)
 	{
-		Scanner scan=new Scanner(System.in);
+	Scanner scan=new Scanner(System.in);
 		ApiLayer api=new ApiLayer();
 		Runner run=new Runner();
 		int operation=0;
@@ -295,6 +300,28 @@ public class Runner {
 			
 		}
 		break;
+	case 10:
+		try {
+			api.mealsOrdered();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		break;
+	case 11:
+		try {
+		System.out.println("Enter the booking id");
+		int bookingId=scan.nextInt();
+		api.printTicket(bookingId);	
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		break;
+		
 	default:
 		value=false;
 		System.out.println("Enter the valid number");

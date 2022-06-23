@@ -67,4 +67,16 @@ public void createFolder(String folder) throws IOException
 	public void cancelTicket(int bookingId,String seatName) {
 		ticket.cancelTicket(bookingId,seatName);
 	}
+	public void mealsOrdered()
+	{
+		ticket.mealsOrderedSeats();
+	}
+	public void printTicket(int bookingId)
+	{
+		ticket.ticketSummary(bookingId);
+	}
+	public void filterClass(String classType) throws FileNotFoundException, IOException
+	{
+		ticket.filterUsingClass(classType);
+	}
 }
