@@ -1,14 +1,12 @@
 package BookingCenter;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 public class Booking {
 private int bookingId;
 private int amount;
 private String departure;
 private String destination;
-private String date;
+private Date date;
 private boolean mealPreference=false;
 private int numberOfPassengers;
 private String flightName;
@@ -38,10 +36,10 @@ public String getDestination() {
 public void setDestination(String destination) {
 	this.destination = destination;
 }
-public String getDate() {
+public Date getDate() {
 	return date;
 }
-public void setDate(String date) {
+public void setDate(Date date) {
 	this.date = date;
 }
 public boolean isMealPreference() {
@@ -60,6 +58,6 @@ public void setFlightName(String flightName) {
 @Override
 public String toString() {
 	return "Booking [bookingId=" + bookingId + ", amount=" + amount + ", departure=" + departure + ", destination="
-			+ destination + ", date=" + date + ", mealPreference=" + mealPreference + "]";
+			+ destination + ", date=" +date+ ", mealPreference=" + mealPreference + "]";
 }
 }

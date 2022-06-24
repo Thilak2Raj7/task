@@ -67,8 +67,8 @@ public class Runner {
 	int sum1=0;
     char[]array=obj.businessClass();
     char[] array1=obj.economyClass();
-    int businessRow=Integer.parseInt(obj.businessRow());
-    int economyRow=Integer.parseInt(obj.economyRow());
+    int businessRow=obj.businessRow();
+    int economyRow=obj.economyRow();
     
     for(int i=0;i<array.length;i++)
     {
@@ -106,7 +106,7 @@ public class Runner {
 		while(value)
 		{
 		try {
-			System.out.println(" Flight by choosing  source and destination press 1 or press 2 for business class flights ");
+			System.out.println(" Filter Flights  by  pressing  1 for locations wise flights or press 2  for business class flights or press 3 for back option");
 			  search=scan.nextInt();	
 			
 		}
@@ -117,22 +117,25 @@ public class Runner {
 		switch(search)
 		{
 		case 1:
+			scan.nextLine();
 			System.out.println("Enter the departure " );
 		     String departure=scan.nextLine();
-		     scan.nextLine();
+		    
 		     System.out.println("Enter the destination");
 		     String destination=scan.nextLine();
-		     
-		     obj.searchFlightsUsingPlace(departure+"-"+destination);
+		     String place=departure+"-"+destination;
+		     System.out.println(place);
+		     obj.searchFlightsUsingPlace(place);
 		     break;
 		case 2:
-			System.out.println("Enter the class preference of flights");
+			//System.out.println("Enter the class preference of flights");
 			//String classType=scan.nextLine();
-			obj.filterClass("classType");
+			obj.filterClass();
 			break;
 		
 		default:
 			value=false;
+			
 		}
 		
 		
@@ -194,6 +197,18 @@ public class Runner {
 		Runner run=new Runner();
 		int operation=0;
 		boolean value=true;
+		
+		System.out.println("1.Create folder to store flightDetails\n"+
+				   "2.Write the details in the file\n"+
+				   "3.Write seat Arrangement in the file\n"+
+				   "4.Read the data in the file\n"+
+				    
+		           "5.List down the flights \n"+
+				   "6.Search flights using locations and business class flights\n"+
+		           "7.To book ticket\n"+
+				   "8.To cancel Ticket\n"+
+		            "9.To show Meals ordered seats\n"+
+			         "10.Print ticket details\n");
 		while(value)
 		{
 		try {
@@ -217,6 +232,7 @@ public class Runner {
 		{
 			System.out.println(e.getMessage());
 		}
+		
 	  break;
 	case 2:
 		try {
@@ -247,17 +263,8 @@ public class Runner {
 			
 		}
 		break;
+
 	case 5:
-		try {
-			run.arrangeSeats();
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			
-		}
-		break;
-	case 6:
 		try {
 		run.listDownFlights();
 			}
@@ -267,7 +274,7 @@ public class Runner {
 			
 		}
 		break;
-	case 7:
+	case 6:
 		try {
 		run.searchFlights();
 			
@@ -275,10 +282,10 @@ public class Runner {
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
-			
+			e.printStackTrace();
 		}
 		break;
-	case 8:
+	case 7:
 		try {
 		run.bookTicket();
 			
@@ -289,7 +296,7 @@ public class Runner {
 			
 		}
 		break;
-	case 9:
+	case 8:
 		try {
 		run.cancelTicket();
 			
@@ -300,7 +307,7 @@ public class Runner {
 			
 		}
 		break;
-	case 10:
+	case 9:
 		try {
 			api.mealsOrdered();
 			
@@ -310,7 +317,7 @@ public class Runner {
 			System.out.println(e.getMessage());
 		}
 		break;
-	case 11:
+	case 10:
 		try {
 		System.out.println("Enter the booking id");
 		int bookingId=scan.nextInt();

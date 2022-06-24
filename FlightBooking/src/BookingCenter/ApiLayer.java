@@ -43,18 +43,18 @@ public void createFolder(String folder) throws IOException
 	{
 		return ticket.classType2();
 	}
-	public String businessRow()
+	public int businessRow()
 	{
 		return ticket.businessRow();
 		
 	}
-	public String economyRow()
+	public int economyRow()
 	{
 		return ticket.economyRow();
 	}
 	public void readFlights(String fileName) throws FileNotFoundException, IOException
 	{
-		ticket.storeFlightDetails(fileName);
+		ticket.flightDetails(fileName);
 	}
 	public void searchFlightsUsingPlace(String place) throws FileNotFoundException, IOException
 	{
@@ -75,8 +75,8 @@ public void createFolder(String folder) throws IOException
 	{
 		ticket.ticketSummary(bookingId);
 	}
-	public void filterClass(String classType) throws FileNotFoundException, IOException
+	public void filterClass() throws FileNotFoundException, IOException
 	{
-		ticket.filterUsingClass(classType);
+		ticket.filterUsingClass();
 	}
 }

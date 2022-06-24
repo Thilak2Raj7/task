@@ -1,0 +1,4 @@
+Denomination		Number		Value
+2000			10		20000
+500			5		2500
+100			5		500

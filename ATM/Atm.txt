@@ -1,0 +1,4 @@
+Denominationt	Number		Value
+2000		4		8000
+500		4		2000
+100		2		200

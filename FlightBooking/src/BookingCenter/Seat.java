@@ -1,5 +1,3 @@
-
-
 package BookingCenter;
 
 public class Seat {
@@ -7,8 +5,13 @@ private String seatName;
 private String classType;
 private String seatType;
 private String flightName;
-public String getSeatName()
-{
+public String getFlightName() {
+	return flightName;
+}
+public void setFlightName(String flightName) {
+	this.flightName = flightName;
+}
+public String getSeatName() {
 	return seatName;
 }
 public void setSeatName(String seatName) {
@@ -26,16 +29,10 @@ public String getSeatType() {
 public void setSeatType(String seatType) {
 	this.seatType = seatType;
 }
-
-public String getFlightName() {
-	return flightName;
-}
-public void setFlightName(String flightName) {
-	this.flightName = flightName;
-}
 @Override
 public String toString() {
-	return "Seat [seatName=" + seatName + ", classType=" + classType + ", seatType=" + seatType + "]";
+	return "Seat [seatName=" + seatName + ", classType=" + classType + ", seatType=" + seatType + ", flightName="
+			+ flightName + "]";
 }
 
 
