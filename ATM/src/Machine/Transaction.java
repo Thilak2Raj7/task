@@ -1,28 +1,37 @@
 package Machine;
 
 public class Transaction {
-private long accountNumber;
-private long receiverAccountNumber;
-private long amountTransfered;
+//private long accountNumber;
+//private long receiverAccountNumber;
+private String description;
 private long closingBalance;
 private String transferType;
-public long getAccountNumber() {
-	return accountNumber;
+private int amount;
+private int transactionNumber;
+public int getTransactionNumber() {
+	return transactionNumber;
 }
-public void setAccountNumber(long accountNumber) {
-	this.accountNumber = accountNumber;
+public void setTransactionNumber(int transactionNumber) {
+	this.transactionNumber = transactionNumber;
 }
-public long getReceiverAccountNumber() {
-	return receiverAccountNumber;
+public int getAmount() {
+	return amount;
 }
-public void setReceiverAccountNumber(long receiverAccountNumber) {
-	this.receiverAccountNumber = receiverAccountNumber;
+public void setAmount(int amount) {
+	this.amount = amount;
 }
-public long getAmountTransfered() {
-	return amountTransfered;
+//public long getAccountNumber() {
+//	return accountNumber;
+//}
+//public void setAccountNumber(long accountNumber) {
+//	this.accountNumber = accountNumber;
+//}
+
+public String getDescription() {
+	return description;
 }
-public void setAmountTransfered(long amountTransfered) {
-	this.amountTransfered = amountTransfered;
+public void setDescription(String description) {
+	this.description = description;
 }
 public long getClosingBalance() {
 	return closingBalance;
@@ -38,9 +47,9 @@ public void setTransferType(String transferType) {
 }
 @Override
 public String toString() {
-	return "Transaction [accountNumber=" + accountNumber + ", receiverAccountNumber=" + receiverAccountNumber
-			+ ", amountTransfered=" + amountTransfered + ", closingBalance=" + closingBalance + ", transferType="
-			+ transferType + "]";
+	return "Transaction [ description=" + description + ", closingBalance=" + closingBalance + ", transferType=" + transferType
+			+ ", amount=" + amount + "]";
 }
+
 
 }

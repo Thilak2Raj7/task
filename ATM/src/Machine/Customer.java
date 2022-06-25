@@ -3,8 +3,7 @@ package Machine;
 public class Customer {
 private long accountNumber;
 private String name;
-private int age;
-private long accountBalance;
+private  int accountBalance;
 private int pinNumber;
 public long getAccountNumber() {
 	return accountNumber;
@@ -18,16 +17,11 @@ public String getName() {
 public void setName(String name) {
 	this.name = name;
 }
-public int getAge() {
-	return age;
-}
-public void setAge(int age) {
-	this.age = age;
-}
-public long getAccountBalance() {
+
+public int getAccountBalance() {
 	return accountBalance;
 }
-public void setAccountBalance(long accountBalance) {
+public void setAccountBalance(int accountBalance) {
 	this.accountBalance = accountBalance;
 }
 public int getPinNumber() {
@@ -38,7 +32,7 @@ public void setPinNumber(int pinNumber) {
 }
 @Override
 public String toString() {
-	return "Customer [accountNumber=" + accountNumber + ", name=" + name + ", age=" + age + ", accountBalance="
+	return "Customer [accountNumber=" + accountNumber + ", name=" + name + ", accountBalance="
 			+ accountBalance + ", pinNumber=" + pinNumber + "]";
 }
 

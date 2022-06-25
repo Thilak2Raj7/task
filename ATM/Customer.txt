@@ -1,0 +1,6 @@
+AccountNumber	AccountHolder	PinNumber	ClosingBalance
+1		Suresh		1236		15600
+2		Mani		1256		81000
+3		Ramu		78456		72400
+4		Rajesh		8945		58235
+5		Vijay		4789		31465
