@@ -23,9 +23,8 @@ public void loadCash() throws IOException
 	System.out.println("Enter the number of notes in 100");
 	int note3=scan.nextInt();
 	scan.nextLine();
-	System.out.println("Enter the file name");
-	String fileName=scan.nextLine();
-    obj.calculateAmount(fileName,note1,note2,note3);
+	
+    obj.calculateAmount(note1,note2,note3);
 }
 public void readFile() throws IOException
 {
@@ -72,6 +71,9 @@ long accountNo=scan.nextLong();
 System.out.println("Enter the pin");
 int pin=scan.nextInt();
 obj.checkCrediantials(accountNo, pin);
+//obj.readTransaction();
+//obj.readFile();
+//obj.readCustomerDetails();
 System.out.println("Press1 for Check Balance");
 System.out.println("Press2 for Withdraw money");
 System.out.println("Press3 for Transfer money");
@@ -87,23 +89,30 @@ case 1:
 case 2:
 	System.out.println("Enter the amount");
 	int amount=scan.nextInt();
+	obj.amountLimit(amount);
 	obj.withDrawMoney(accountNo,amount);
 	break;
 case 3:
 	
 	System.out.println("Enter the receiver accountId");
 	long receiver=scan.nextLong();
+	if(accountNo==receiver)
+	{
+		throw new Exception("Sender account and receiver account are same !");
+	}
+	else
+	{
 	System.out.println("Enter the amount");
 	 amount=scan.nextInt();
 	 obj.transferMoney(accountNo,amount,receiver);
-	
+	}
 	break;
 case 4:
-	
+	obj.checkAtmBalance();
 	break;
 
 case 5:
-	
+	obj.miniStatement(accountNo);
 	break;
 	
 	default:
@@ -192,7 +201,7 @@ public static void main(String[] args)
 	
 		try {
 			
-			obj.checkAtmBalance();
+			
 		}
 		 catch (Exception e) {
 				System.out.println(e.getMessage());

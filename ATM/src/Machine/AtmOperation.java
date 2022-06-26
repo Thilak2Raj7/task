@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ public AtmOperation()
 	readCustomerDetails();
 	System.out.println("Successfully completed");
 	readTransaction();
+	//readTransactionNumber();
 }
 	catch(Exception e)
 	{
@@ -53,7 +55,7 @@ public void checkAtmBalance()
 	 }
 	
 }
-public void calculateAmount(String fileName,int note1,int note2,int note3) throws IOException
+public void calculateAmount(int note1,int note2,int note3) throws IOException
 {
 
 	int count1=atmObj.getCount1();
@@ -214,8 +216,8 @@ public void checkCrediantials(long accountNumber,int pin)throws Exception
 }
 public int getTransactionNumber()
 {
-	
-	return ++lastTransactionNo;
+	lastTransactionNo=lastTransactionNo+1;
+	return lastTransactionNo;
 	
 }
 public void writeTransaction(long accountNumber) throws IOException
@@ -223,7 +225,9 @@ public void writeTransaction(long accountNumber) throws IOException
 	String customerId=String.valueOf(accountNumber);
 	try(BufferedWriter bw=new BufferedWriter(new FileWriter("<"+customerId+">transaction.txt")))
 	{
-		bw.write(lastTransactionNo+"\n");
+		
+	
+		
 		bw.write("TransactionNo"+"\t"+"Description"+"\t\t"+"Credit/debit "+"\t"+"Amount "+"\t"+"ClosingBalance"+'\n');
 		List<Transaction> trans=transaction.get(accountNumber);
 	   for(int i=0;i<trans.size();i++)
@@ -235,6 +239,8 @@ public void writeTransaction(long accountNumber) throws IOException
 		 String description =String.valueOf (obj.getDescription());
 		 String transaction =String.valueOf (obj.getTransactionNumber());
 		 String transferType =String.valueOf (obj.getTransferType());
+		 //Formatter fr=new Formatter();
+		 
 		  bw.write(transaction+"\t\t"+ description+"\t\t"+ transferType+"\t\t"+amount+"\t\t"+closingBalance+'\n');
 		   
 	   }
@@ -242,6 +248,37 @@ public void writeTransaction(long accountNumber) throws IOException
 	
 	
 	
+}
+public void amountLimit(int amount) throws Exception
+{
+if(amount>10000 && amount<100)
+{
+	throw new Exception("Maximum withdraw limit is 10000 and Minimum withdraw limit is 500");
+}
+	
+	
+}
+public void writeTransactionNumber() throws IOException
+{
+	try(BufferedWriter bw=new BufferedWriter(new FileWriter("TransactionNumber.txt")))
+	{
+		String transactionNumber=String.valueOf(lastTransactionNo);
+		bw.write(transactionNumber);
+	}
+	
+	
+}
+public void readTransactionNumber() throws FileNotFoundException, IOException
+{
+	try(BufferedReader bw=new BufferedReader(new FileReader("TransactionNumber.txt"))) {
+		String line="";
+		while((line=bw.readLine())!=null)
+		{
+			
+		line=line.trim();
+			String trans=line;
+		}
+	}
 }
 
 public void readTransaction() throws FileNotFoundException, IOException
@@ -263,10 +300,7 @@ public void readTransaction() throws FileNotFoundException, IOException
 		{
 		
          String[] array=line.split("\t\t");
-         if(count==0)
-         {
-        	 lastTransactionNo=Integer.parseInt(array[0]);
-         }
+       
          if(count>1)
          {
         	int closingBalance=Integer.parseInt(array[4]) ;
@@ -306,11 +340,16 @@ public void withDrawMoney(long accountNumber,int amount) throws Exception
 		if(balance>amount && amount>100 && amount <10000)
 		{
 		balance=balance-amount;
+		
+		
+	
+		System.out.println(customer);
+		denomination(amount);
+		
 		cusObj.setAccountBalance(balance);
 		customer.put(accountNumber, cusObj);
-		
+		transactionDetails(accountNumber,"CashWithdraw",0,balance,amount);
 		writeCustomerDetails(customer);
-		denomination(amount);
          }
 		else
 		{
@@ -326,28 +365,32 @@ public void transactionDetails(long sender,String describe,long receiver,long ba
 	}
 	Transaction trans1=new Transaction();
 	//trans1.setAccountNumber(sender);
-	String description=describe+String.valueOf(receiver);
+	String description="";
 	if(describe.equals("Transfer to "))
 	{
+		 description=describe+String.valueOf(receiver);
 		trans1.setTransferType("Debit");
 	}
 	else if(describe.equals("Transfer from"))
 	{
+		description=describe+String.valueOf(receiver);
 		trans1.setTransferType("Credit");
 	}
 	else
 	{
-		trans1.setTransferType("CashWithdraw");
+		description=describe;
+		trans1.setTransferType("Debit");
 	}
 	trans1.setDescription(description);
 	int transNo=getTransactionNumber();
+	System.out.println(transNo);
 	trans1.setTransactionNumber(transNo);
 	trans1.setAmount(amount);
 	trans1.setClosingBalance(balance);
 	transDetails.add(trans1);
 	transaction.put(sender, transDetails);	
 	writeTransaction(sender);
-	
+	writeTransactionNumber();
 }
 public void transferMoney(long sender,int amount,long receiver) throws Exception
 {
@@ -369,17 +412,18 @@ public void transferMoney(long sender,int amount,long receiver) throws Exception
 		describe="Transfer from";
 		 transactionDetails(receiver,describe,sender,balance1,amount);
 		 writeCustomerDetails(customer);
-		 
+		
 	}
 	else
 	{
 		throw new Exception("Exception occured");
 	}
-	System.out.println(customer);
-	System.out.println(transaction);
+	//System.out.println(customer);
+	//System.out.println(transaction);
 }
-public void denomination(int amount) throws IOException
+public void denomination(int amount) throws Exception
 {
+readFile();	
 int note1=atmObj.getCount1();
 int note2=atmObj.getCount2();
 int note3=atmObj.getCount3();
@@ -388,39 +432,115 @@ int note3=atmObj.getCount3();
 	if(note1>=2)
 	{
 	note1=note1-2;
-	}
 	amount-=2*2000;
+	}
+	else
+	{
+	throw new Exception("Not sufficient amount to withdraw");
+	}
 	
-	System.out.println("a1"+amount);
+	//System.out.println("a1"+amount);
 	
   int den1=amount/500;
-  System.out.println("den"+den1);
-	if(note2>=2)
+  if(den1>note2)
+  {
+	  throw new Exception("Not sufficient amount to withdraw");  
+  }
+  ///System.out.println("den"+den1);
+  else  
 	{
-	 note2=note2-den1;
-	}
+	note2=note2-den1;
 	amount-=den1*500;
-	System.out.println("a2"+amount);
+	}
+	
+	//System.out.println("a2"+amount);
 	int den2=amount/100;
-	  System.out.println("den2"+den2);
+	  //System.out.println("den2"+den2);
 	if(note3 >=den2 && den2<=10)
 	{
-	note3=note3-den2;	
-	}
+	note3=note3-den2;
 	amount-=den2*100;
-	System.out.println("a3"+amount);
-	atmObj.setCount1(note1);
-	atmObj.setCount2(note2);
-	atmObj.setCount3(note3);
+	}
+	else
+	{
+	throw new Exception("Not sufficient amount to withdraw");
+	}
+	//System.out.println("a3"+amount);
+
 	writeFile();
 	}
 	else
 	{
-		
-		
+		if(amount>3000 )
+		{
+	    if(note1<0)
+	    {
+	    throw new Exception("Not sufficent amount to withdraw ");	
+	    }
+		note1=note1-1;
+		//System.out.println("n1"+note1);
+		amount-=(2000*1);
+		}
+		//System.out.println("a1"+amount);
+		while(amount>1000)
+		{
+		 if(note2<0)
+		  {
+		 throw new Exception("Not sufficent amount to withdraw ");	
+	    }
+		note2=note2-1;
+		amount-=(500*1);
+		//System.out.println("n2"+note2);
+		}
+		//System.out.println("a2"+amount);
+		while(amount>=100)
+		{
+		if(note3<0)
+		{
+		 throw new Exception("Not sufficent amount to withdraw ");	
+	    }
+		note3=note3-1;
+		amount-=(100*1);
+		//System.out.println("n3"+note3);
+		}
+		//System.out.println("a3"+amount);
+     }
+	atmObj.setCount1(note1);
+	atmObj.setCount2(note2);
+	atmObj.setCount3(note3);
+	writeFile();
+	
+    
+}
+public void miniStatement(long accountNumber) throws FileNotFoundException, IOException
+{
+	Formatter formatter=new Formatter();
+	formatter.format("%s %12s %15s %12s %12s","TransactionNo","Description","Credit/debit","Amount","ClosingBalance");
+	System.out.println(formatter);
+	List<Transaction> transObj=transaction.get(accountNumber);
+	System.out.println(transObj);
+	int length=transObj.size();
+	int count=0;
+	if(length>10)
+	{
+	count=length-10;	
+	}
+	else 
+	{
+	count=0;	
 	}
 	
-}
+	
+	for(int i=length-1;i>=count;i--)
+	{
+	Transaction obj=transObj.get(i);
+	Formatter form=new Formatter();
+	
+	form.format("%10s %15s %15s %12s %12s",obj.getTransactionNumber(),obj.getDescription(),obj.getTransferType(),obj.getAmount(),obj.getClosingBalance());
+	System.out.println(form);	
+	}
 
+	
+}
 }
 

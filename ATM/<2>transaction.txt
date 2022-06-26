@@ -1,3 +1,5 @@
-3
+6
 TransactionNo	Description		Credit/debit 	Amount 	ClosingBalance
 3		Transfer from1		Credit		1000		81000
+7		Transfer from1		Credit		1000		80000
+6		Transfer from1		Credit		1000		81000
