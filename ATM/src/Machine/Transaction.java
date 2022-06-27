@@ -1,8 +1,7 @@
 package Machine;
 
 public class Transaction {
-//private long accountNumber;
-//private long receiverAccountNumber;
+
 private String description;
 private long closingBalance;
 private String transferType;
@@ -20,12 +19,7 @@ public int getAmount() {
 public void setAmount(int amount) {
 	this.amount = amount;
 }
-//public long getAccountNumber() {
-//	return accountNumber;
-//}
-//public void setAccountNumber(long accountNumber) {
-//	this.accountNumber = accountNumber;
-//}
+
 
 public String getDescription() {
 	return description;

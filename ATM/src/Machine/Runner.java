@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Formatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import Machine.Customer;
@@ -25,10 +27,11 @@ public void loadCash() throws IOException
 	scan.nextLine();
 	
     obj.calculateAmount(note1,note2,note3);
+    System.out.println("Successfully the cash loaded to the atm");
 }
 public void readFile() throws IOException
 {
-	obj.readFile();
+	obj.cashAvailableInAtm();
 }
 
 public void customerDetails() throws IOException
@@ -60,8 +63,9 @@ public void customerDetails() throws IOException
 		customer.setAccountBalance(amount);
 		
 	}
-	System.out.println(cusObj);
+	
 	obj.writeCustomerDetails(cusObj);
+	System.out.println("Customer added successfully");
 }
 
 public void atmOperation() throws Exception
@@ -91,6 +95,7 @@ case 2:
 	int amount=scan.nextInt();
 	obj.amountLimit(amount);
 	obj.withDrawMoney(accountNo,amount);
+	System.out.println("Amount withdrawn successfully");
 	break;
 case 3:
 	
@@ -105,37 +110,65 @@ case 3:
 	System.out.println("Enter the amount");
 	 amount=scan.nextInt();
 	 obj.transferMoney(accountNo,amount,receiver);
+	 System.out.println("Amount transfered successfully");
 	}
 	break;
 case 4:
-	obj.checkAtmBalance();
+	obj.checkAtmBalance(accountNo);
 	break;
 
 case 5:
-	obj.miniStatement(accountNo);
+	List<Transaction> transObj=obj.miniStatement(accountNo);
+	Formatter formatter=new Formatter();
+	formatter.format("%s %12s %15s %12s %12s","TransactionNo","Description","Credit/debit","Amount","ClosingBalance");
+	//System.out.println(formatter);
+   int length=transObj.size();
+	int count=0;
+	if(length>10)
+	{
+	count=length-10;	
+	}
+	else 
+	{
+	count=0;	
+	}
+	
+	System.out.println(transObj);
+	for(int i=length-1;i>=count;i--)
+	{
+	Transaction obj=transObj.get(i);
+	Formatter form=new Formatter();
+	
+	form.format("%10s %15s %15s %12s %12s",obj.getTransactionNumber(),obj.getDescription(),obj.getTransferType(),obj.getAmount(),obj.getClosingBalance());
+	System.out.println(form);
+	}
 	break;
 	
 	default:
 		System.out.println("The option is not valid");
 	
 }
-	
-	
-	
-	
+}
+
+
+public void readCustomerDetails() throws IOException
+{
+	System.out.println(obj.readCustomerDetails());
 }
 public static void main(String[] args) 
 {
 	Scanner scan=new Scanner(System.in);
    
- 
-	AtmOperation obj=new AtmOperation();	
+ 	
     Runner run=new Runner();
 	int number=0;
 	boolean value=true;
 	System.out.println("1.Load cash");
+	System.out.println("2.Read the cash from atm");
 	System.out.println("3.Customer details");
+	System.out.println("4.Read the details of customer");
 	System.out.println("5.Atm operation");
+    
 	while(value)
 	{
 	try {
@@ -180,6 +213,7 @@ public static void main(String[] args)
 	case 4:
 		
 			try {
+				AtmOperation obj=new AtmOperation();
 				obj.readCustomerDetails();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -196,18 +230,7 @@ public static void main(String[] args)
 				e.printStackTrace();
 			}
 		break;
-		
-	case 6:
-	
-		try {
-			
-			
-		}
-		 catch (Exception e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-			}
-		break;
+
 	default:
 		value=false;
 	}
