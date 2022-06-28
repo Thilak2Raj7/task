@@ -1,3 +1,5 @@
+
+
 package BookingCenter;
 
 public class Seat {
@@ -5,6 +7,15 @@ private String seatName;
 private String classType;
 private String seatType;
 private String flightName;
+private int amount;
+
+
+public int getAmount() {
+	return amount;
+}
+public void setAmount(int amount) {
+	this.amount = amount;
+}
 public String getFlightName() {
 	return flightName;
 }

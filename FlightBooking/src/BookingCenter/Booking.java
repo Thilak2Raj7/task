@@ -10,6 +10,9 @@ private Date date;
 private boolean mealPreference=false;
 private int numberOfPassengers;
 private String flightName;
+private String seatName;
+
+
 public List<String> list=new ArrayList<>();
 public List<Passenger> passengerList=new ArrayList<>();
 public int getBookingId() {
@@ -55,6 +58,12 @@ public void setFlightName(String flightName) {
 	this.flightName = flightName;
 }
 
+public int getNumberOfPassengers() {
+	return numberOfPassengers;
+}
+public void setNumberOfPassengers(int numberOfPassengers) {
+	this.numberOfPassengers = numberOfPassengers;
+}
 @Override
 public String toString() {
 	return "Booking [bookingId=" + bookingId + ", amount=" + amount + ", departure=" + departure + ", destination="

@@ -56,11 +56,11 @@ public void createFolder(String folder) throws IOException
 	{
 		ticket.flightDetails(fileName);
 	}
-	public void searchFlightsUsingPlace(String place) throws FileNotFoundException, IOException
+	public void searchFlightsUsingPlace(String place) throws Exception
 	{
 		ticket.filterFlightsUsingPlace(place);
 	}
-	public void bookFlight(boolean value,String[] array,List<Passenger> passenger)
+	public void bookFlight(boolean value,String[] array,List<Passenger> passenger) throws Exception
 	{
 		ticket.bookFlight(value,array,passenger);
 	}
@@ -75,8 +75,18 @@ public void createFolder(String folder) throws IOException
 	{
 		ticket.ticketSummary(bookingId);
 	}
-	public void filterClass() throws FileNotFoundException, IOException
+	public void filterClass() throws Exception
 	{
 		ticket.filterUsingClass();
 	}
+	 public void checkAvailableSeats() throws Exception
+     {
+    	String flight=  ticket.flightName;
+    	if(flight.equals(""))
+    	{
+    		throw new Exception("Kindly choose flight to  check availablity!");
+    	}
+    	 ticket.availableSeats(flight);
+     }
+
 }

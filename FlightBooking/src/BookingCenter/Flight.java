@@ -2,37 +2,38 @@ package BookingCenter;
 
 public class Flight {
 private String flightName;
-private int numberOfSeats;
-private int businessClassSeats;
-private int economyClassSeats;
+private int businessPrice=0;
+private int EconomyPrice=0;
+private int numberOfBookings=0;
+public int getNumberOfBookings() {
+	return numberOfBookings;
+}
+public void setNumberOfBookings(int numberOfBookings) {
+	this.numberOfBookings = numberOfBookings;
+}
 public String getFlightName() {
 	return flightName;
 }
 public void setFlightName(String flightName) {
 	this.flightName = flightName;
 }
-public int getNumberOfSeats() {
-	return numberOfSeats;
+public int getBusinessPrice() {
+	return businessPrice;
 }
-public void setNumberOfSeats(int numberOfSeats) {
-	this.numberOfSeats = numberOfSeats;
+public void setBusinessPrice(int businessPrice) {
+	this.businessPrice = businessPrice;
 }
-public int getBusinessClassSeats() {
-	return businessClassSeats;
+public int getEconomyPrice() {
+	return EconomyPrice;
 }
-public void setBusinessClassSeats(int businessClassSeats) {
-	this.businessClassSeats = businessClassSeats;
-}
-public int getEconomyClassSeats() {
-	return economyClassSeats;
-}
-public void setEconomyClassSeats(int economyClassSeats) {
-	this.economyClassSeats = economyClassSeats;
+public void setEconomyPrice(int economyPrice) {
+	EconomyPrice = economyPrice;
 }
 @Override
 public String toString() {
-	return "Flight [flightName=" + flightName + ", numberOfSeats=" + numberOfSeats + ", businessClassSeats="
-			+ businessClassSeats + ", economyClassSeats=" + economyClassSeats + "]";
+	return "Flight [flightName=" + flightName + ", businessPrice=" + businessPrice + ", EconomyPrice=" + EconomyPrice
+			+ ", numberOfBookings=" + numberOfBookings + "]";
 }
+
 
 }
