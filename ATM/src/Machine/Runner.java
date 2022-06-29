@@ -29,44 +29,67 @@ public void loadCash() throws IOException
     obj.calculateAmount(note1,note2,note3);
     System.out.println("Successfully the cash loaded to the atm");
 }
-public void readFile() throws IOException
-{
-	obj.cashAvailableInAtm();
-}
 
-public void customerDetails() throws IOException
+
+/*public void customerDetails() throws IOException
 {
-	Map<Long,Customer> cusObj=new HashMap<Long,Customer>();
-	for(int i=0;i<5;i++)
-	{
-		
-		
-		System.out.println("Enter the account number");
-		long accountNumber=scan.nextLong();
-		System.out.println("Enter the pin number");
-		int pin=scan.nextInt();
-		System.out.println("Enter the balance");
-		int amount=scan.nextInt();
-		scan.nextLine();
-		System.out.println("Enter the name");
-		String name=scan.nextLine();
-		Customer customer=cusObj.get(accountNumber);
-		if(customer==null)
-		{
-			customer=new Customer();
-		}
-		cusObj.put(accountNumber, customer);
+	Map<Long,Customer> customer=new HashMap<Long,Customer>();
+
+	Customer cusObj1=new Customer();
+	Customer cusObj2=new Customer();
+	Customer cusObj3=new Customer();
+	Customer cusObj4=new Customer();
+	Customer cusObj5=new Customer();
+	String name1="Suresh";
+	int pin1=1236;
+	long account1=1;
+	int amount1=41000;
+	cusObj1.setName(name1);
+	cusObj1.setPinNumber(pin1);
+	cusObj1.setAccountNumber(account1);
+	cusObj1.setAccountBalance(amount1);
+	String name2="Mani";
+	long account2=2;
+	int amount2=82000;
+	int pin2=1256;
+	cusObj2.setName(name2);
+	cusObj2.setPinNumber(pin2);
+	cusObj2.setAccountNumber(account2);
+	cusObj2.setAccountBalance(amount2);
+	String name3="Ramu";
+	int pin3=7845;
+	long account3=3;
+	int amount3=65200;
+	cusObj3.setName(name3);
+	cusObj3.setPinNumber(pin3);
+	cusObj3.setAccountNumber(account3);
+	cusObj3.setAccountBalance(amount3);
+	String name4="Rajesh";
+	int pin4=7845;
+	long account4=4;
+	int amount4=30700;
+	cusObj4.setName(name4);
+	cusObj4.setPinNumber(pin4);
+	cusObj4.setAccountNumber(account4);
+	cusObj4.setAccountBalance(amount4);
+	String name5="Vijay";
+	int pin5=4789;
+	long account5=5;
+	int amount5=24400;
+	cusObj5.setName(name5);
+	cusObj5.setPinNumber(pin5);
+	cusObj5.setAccountNumber(account5);
+	cusObj5.setAccountBalance(amount5);
+	customer.put(account1, cusObj1);
+	customer.put(account2, cusObj2);
+	customer.put(account3, cusObj3);
+	customer.put(account4, cusObj4);
+	customer.put(account5, cusObj5);
 	
-		customer.setAccountNumber(accountNumber);
-		customer.setName(name);
-		customer.setPinNumber(pin);
-		customer.setAccountBalance(amount);
-		
-	}
+	obj.writeCustomerDetails(customer);
 	
-	obj.writeCustomerDetails(cusObj);
 	System.out.println("Customer added successfully");
-}
+}*/
 
 public void atmOperation() throws Exception
 { 
@@ -93,6 +116,7 @@ case 1:
 case 2:
 	System.out.println("Enter the amount");
 	int amount=scan.nextInt();
+	
 	obj.amountLimit(amount);
 	obj.withDrawMoney(accountNo,amount);
 	System.out.println("Amount withdrawn successfully");
@@ -101,6 +125,7 @@ case 3:
 	
 	System.out.println("Enter the receiver accountId");
 	long receiver=scan.nextLong();
+	obj.checkAccountNumber(receiver);
 	if(accountNo==receiver)
 	{
 		throw new Exception("Sender account and receiver account are same !");
@@ -109,12 +134,19 @@ case 3:
 	{
 	System.out.println("Enter the amount");
 	 amount=scan.nextInt();
+	 obj.transferLimit(amount);
 	 obj.transferMoney(accountNo,amount,receiver);
 	 System.out.println("Amount transfered successfully");
 	}
 	break;
 case 4:
-	obj.checkAtmBalance(accountNo);
+	ATM atmObj=obj.checkAtmBalance(accountNo);
+	System.out.println("Denomination     Number       value");
+	System.out.println("2000            "+atmObj.getCount1()+"        " + atmObj.getAmount1());
+	System.out.println("500             "+atmObj.getCount2()+"        "+  atmObj.getAmount2());
+	System.out.println("100             "+atmObj.getCount3()+"        "+  atmObj.getAmount3());
+	int totalAmount=atmObj.getAmount1()+atmObj.getAmount2()+atmObj.getAmount3();
+	System.out.println("The total amount in Atm is "+totalAmount);
 	break;
 
 case 5:
@@ -145,6 +177,8 @@ case 5:
 	break;
 	
 	default:
+		
+		
 		System.out.println("The option is not valid");
 	
 }
@@ -153,7 +187,18 @@ case 5:
 
 public void readCustomerDetails() throws IOException
 {
-	System.out.println(obj.readCustomerDetails());
+	Map<Long,Customer> mapObj=obj.readCustomerDetails();
+	System.out.println("AccountNumber"+"\t"+"AccountHolder"+"\t"+"Pin    "+"\t"+"AccountBalance ");
+	
+
+for(long id:mapObj.keySet())
+{
+		Customer cusObj1=mapObj.get(id);
+	    System.out.println("\t"+cusObj1.getAccountNumber()+"\t"+cusObj1.getName()+"\t\t"+cusObj1.getPinNumber()+"\t"+cusObj1.getAccountBalance());
+
+}
+	
+	
 }
 public static void main(String[] args) 
 {
@@ -163,11 +208,9 @@ public static void main(String[] args)
     Runner run=new Runner();
 	int number=0;
 	boolean value=true;
-	System.out.println("1.Load cash");
-	System.out.println("2.Read the cash from atm");
-	System.out.println("3.Customer details");
-	System.out.println("4.Read the details of customer");
-	System.out.println("5.Atm operation");
+	System.out.println("1.Load cash in Atm");
+	System.out.println("2.Read the details of customer");
+	System.out.println("3.Atm operation");
     
 	while(value)
 	{
@@ -192,35 +235,20 @@ public static void main(String[] args)
 			System.out.println(e.getMessage());
 		}
 		break;
+	
+
 	case 2:
-		try {
-			run.readFile();
-		    }
-			catch(Exception e)
-			{
-				System.out.println(e.getMessage());
-			}
-			break;
-	case 3:
-	try {
-		run.customerDetails();
-	}
-	catch(Exception e)
-	{
-		System.out.println(e.getMessage());
-	}
-	break;
-	case 4:
 		
 			try {
-				AtmOperation obj=new AtmOperation();
-				obj.readCustomerDetails();
+	run.readCustomerDetails();
+		
+		
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 		break;
-	case 5:
+	case 3:
 		try {
 			
 			run.atmOperation();
@@ -230,9 +258,11 @@ public static void main(String[] args)
 				e.printStackTrace();
 			}
 		break;
+		
 
 	default:
 		value=false;
+		System.out.println("Kindly check number you have entered!! && Press number from 1  to 4 to perform operation");
 	}
 }
 }

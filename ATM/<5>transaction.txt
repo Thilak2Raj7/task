@@ -2,3 +2,5 @@ TransactionNo	Description		Credit/debit 	Amount 	ClosingBalance
 4		CashWithdraw		Debit		1000		24465
 14		Transfer to 2		Debit		1000		23465
 17		Transfer from4		Credit		1000		24465
+3		Transfer from1		Credit		1000		25400
+15		Transfer from1		Credit		3000		27400

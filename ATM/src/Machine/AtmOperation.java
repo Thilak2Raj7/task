@@ -12,11 +12,7 @@ public  void calculateAmount(int note1,int note2,int note3) throws IOException
 storage.calculateAmount(note1, note2, note3);;	
 	
 }
-public ATM  cashAvailableInAtm() throws IOException
-{
-	return storage.readFile();
-	
-}
+
 public void customerDetails(Map<Long,Customer> obj) throws IOException
 {
 	storage.writeCustomerDetails(obj);
@@ -34,9 +30,9 @@ public void transferMoney(long accountNumber,int amount,long receiver) throws Ex
 {
 	storage.transferMoney(accountNumber,amount,receiver);
 }
-public void checkAtmBalance(long accountNumber)
+public ATM checkAtmBalance(long accountNumber) throws IOException
 {
-	storage.checkAtmBalance();
+	return storage.checkAtmBalance();
 }
 public List<Transaction> miniStatement(long accountNumber) throws FileNotFoundException, IOException
 {
@@ -48,6 +44,7 @@ public void checkCrediantials(long accountNumber,int pin) throws Exception
 }
 public  Map<Long,Customer> readCustomerDetails() throws IOException
 {
+	
 	return storage.readCustomerDetails();
 }
 public void  writeCustomerDetails(Map<Long,Customer> customer) throws IOException
@@ -56,6 +53,15 @@ public void  writeCustomerDetails(Map<Long,Customer> customer) throws IOExceptio
 }
 public void amountLimit(int amount) throws Exception {
 	storage.amountLimit(amount);
+	
+}
+public void transferLimit(int amount) throws Exception {
+	storage.transferLimit(amount);
+	
+}
+
+public void checkAccountNumber(long receiver) throws Exception {
+	storage.checkAccountNumber(receiver);
 	
 }
 }
