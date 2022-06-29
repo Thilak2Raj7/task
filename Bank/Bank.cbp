@@ -41,6 +41,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="IndianBank.h" />
+		<Unit filename="InputCenter.h" />
 		<Unit filename="Loan.h" />
 		<Unit filename="SBI.h" />
 		<Unit filename="main.cpp" />

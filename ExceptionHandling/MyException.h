@@ -6,22 +6,23 @@
 using namespace std;
 
 
-class MyException:public exception{
+class MyException:public exception
+{
 
 private:
 
-string message;
+    string message;
 
 
 public:
-MyException(string msg)
-{
-message=msg;
-}
-  string what()
- {
-   return message;
- }
+    MyException(string msg)
+    {
+        message=msg;
+    }
+    string what()
+    {
+        return message;
+    }
 };
 
 #endif // MYEXCEPTION_H_INCLUDED

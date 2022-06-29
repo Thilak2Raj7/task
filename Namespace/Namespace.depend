@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1655387913 source:/home/thilak-inc1491/Development/Namespace/main.cpp
+	<iostream>
+	"Namespace.h"
+
+1655974077 /home/thilak-inc1491/Development/Namespace/Namespace.h
+	<iostream>
+	<math.h>
+
