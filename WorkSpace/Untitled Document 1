@@ -1,0 +1,35 @@
+import java.util.*;
+
+
+public class File{
+  public  void createFile()
+  {
+    File f1=new File("Str.txt");
+    f1.createNewFile();
+    FileWriter fw=new FileWriter('Str.txt");
+    BufferedWriter bw=new BufferedWriter(fw);
+    bw.write("String");
+    fw.close();
+    }
+    
+    publicn void readFile()
+    {
+    
+    FileReader fr=new FileReader("Str.txt");
+       Bufferedreader br=new BufferedReader(fr);
+       String s1="";
+           while(s1=bw.readLine()!=-1)
+{  Systeme.out.println(s1);
+}
+}
+public static void main(String[] args)
+{
+
+
+File o1=new File();
+o1.createFile();
+o1.readFile();
+}
+}
+
+

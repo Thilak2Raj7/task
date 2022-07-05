@@ -116,12 +116,9 @@ for(int i=number-1;i>=0;i--){
  
 public String getConcat(String inputString,String inputString2,String inputString1)throws Exception{
 check(inputString);
-check(inputString1);
-check(inputString2);
   inputString=inputString.replaceAll(inputString1,inputString2);//15th pg
 return inputString;
 }
-
 
 public String[] getEncloseString(String inputString)throws Exception{
 check(inputString);
@@ -156,3 +153,4 @@ inputString=inputString.trim();//20th pg
 return inputString;
 }
 }
+
