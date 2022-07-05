@@ -67,8 +67,8 @@ public class Runner {
 	int sum1=0;
     char[]array=obj.businessClass();
     char[] array1=obj.economyClass();
-    int businessRow=obj.businessRow();
-    int economyRow=obj.economyRow();
+    int businessRow=Integer.parseInt(obj.businessRow());
+    int economyRow=Integer.parseInt(obj.economyRow());
     
     for(int i=0;i<array.length;i++)
     {
@@ -76,7 +76,7 @@ public class Runner {
     }
     for(int j=0;j<array1.length;j++)
     {
-    	sum1+=(int)array1[j];
+    	sum+=(int)array1[j];
     }
     
    //int name=65;
@@ -99,15 +99,16 @@ public class Runner {
 	obj.readFlights(fileName);
 		 
 	}
-	public void searchFlights() throws Exception
+	public void searchFlights() throws FileNotFoundException, IOException
 	{
 		int search=0;
-		
-		
+		boolean value=true;
+		while(value)
+		{
 		try {
-			System.out.println(" Filter Flights  by  pressing  1 for locations wise flights or press 2  for business class flights ");
+			System.out.println(" Flight by choosing  source and destination press 1 or press 2 for business class flights ");
 			  search=scan.nextInt();	
-			scan.nextLine();
+			
 		}
 		catch(Exception e)
 		{
@@ -116,31 +117,32 @@ public class Runner {
 		switch(search)
 		{
 		case 1:
-			
 			System.out.println("Enter the departure " );
 		     String departure=scan.nextLine();
-		    
+		     scan.nextLine();
 		     System.out.println("Enter the destination");
 		     String destination=scan.nextLine();
-		     String place=departure+"-"+destination;
-		    // System.out.println(place);
-		     obj.searchFlightsUsingPlace(place);
-		     System.out.println("Press 7 to book Ticket");
+		     
+		     obj.searchFlightsUsingPlace(departure+"-"+destination);
 		     break;
 		case 2:
+			System.out.println("Enter the class preference of flights");
+			//String classType=scan.nextLine();
+			obj.filterClass("classType");
+			break;
 		
-			obj.filterClass();
-			System.out.println("Press 7 to book Ticket");
-		     break;
-	    
-			
+		default:
+			value=false;
 		}
 		
 		
-	
 	}
-	public void bookTicket() throws Exception
+	}
+	public void bookTicket()
 	{
+		scan.nextLine();
+		
+		
 		System.out.println("Enter the number of tickets");
 		int numberOfTickets=scan.nextInt();
 		String[] array=new String[numberOfTickets];
@@ -171,7 +173,7 @@ public class Runner {
 	}
 	public void cancelTicket()
 	{
-		//System.out.println("Enter the number of tickets you want to cancel");
+		System.out.println("Enter the number of tickets you want to cancel");
 		System.out.println("Enter the booking id");
 		int bookingId=scan.nextInt();
 		scan.nextLine();
@@ -192,25 +194,12 @@ public class Runner {
 		Runner run=new Runner();
 		int operation=0;
 		boolean value=true;
-		
-		System.out.println("1.Create folder to store flightDetails\n"+
-				   "2.Write the details in the file\n"+
-				   "3.Write seat Arrangement in the file\n"+
-				   "4.Read the data in the file\n"+
-				    
-		           "5.List down the flights \n"+
-				   "6.Search flights using locations and business class flights\n"+
-				    "7. To book tickets\n"+
-				   "8.To cancel Ticket\n"+
-		            "9.To show Meals ordered seats\n"+
-			         "10.Print ticket details\n"+
-		             "11.Check availble seats (Select flight by choosing 5 and 6 opertion and check seat Availablity");
 		while(value)
 		{
 		try {
 			System.out.println("Enter the operation to perform");
 			operation=scan.nextInt();
-		    scan.nextLine();
+			scan.nextLine();
 		}
 		catch(Exception e)
 		{
@@ -228,7 +217,6 @@ public class Runner {
 		{
 			System.out.println(e.getMessage());
 		}
-		
 	  break;
 	case 2:
 		try {
@@ -259,19 +247,27 @@ public class Runner {
 			
 		}
 		break;
-
 	case 5:
 		try {
-		run.listDownFlights();
-			}
+			run.arrangeSeats();
+		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			System.out.println(e.getMessage());
 			
 		}
 		break;
 	case 6:
+		try {
+		run.listDownFlights();
+			}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		break;
+	case 7:
 		try {
 		run.searchFlights();
 			
@@ -279,23 +275,12 @@ public class Runner {
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		break;
-	case 7:
-		try {
-		run.bookTicket();
 			
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			e.printStackTrace();
 		}
 		break;
 	case 8:
 		try {
-		run.cancelTicket();
+		run.bookTicket();
 			
 		}
 		catch(Exception e)
@@ -306,16 +291,26 @@ public class Runner {
 		break;
 	case 9:
 		try {
+		run.cancelTicket();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		break;
+	case 10:
+		try {
 			api.mealsOrdered();
 			
 		}
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
-			e.printStackTrace();
 		}
 		break;
-	case 10:
+	case 11:
 		try {
 		System.out.println("Enter the booking id");
 		int bookingId=scan.nextInt();
@@ -324,19 +319,9 @@ public class Runner {
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
-			e.printStackTrace();
 		}
 		break;
-	case 11:
-		try {
-			api.checkAvailableSeats();
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		break;
+		
 	default:
 		value=false;
 		System.out.println("Enter the valid number");

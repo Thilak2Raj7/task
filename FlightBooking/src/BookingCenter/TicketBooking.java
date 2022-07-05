@@ -9,37 +9,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import BookingCenter.Booking;
 import BookingCenter.Seat;
 
 public class TicketBooking {
 List<String> flightInfo=new ArrayList<String>();
- List<String> meals=new ArrayList<String>();
+static List<String> meals=new ArrayList<String>();
 String flightName="";
 int bookingId=0;
 int amountCount=0;
 String departure="";
 String destination="";
-Flight obj=new Flight();
-int flightCount1=0;
-int flightCount2=0;
-int flightCount3=0;
-Map<String ,Flight> flightObj=new HashMap<String,Flight>();
+//Map<String,List<Seat>> mapObj=new HashMap<String,List<Seat>>();
 Map<Integer,Map<String ,Seat>> occupiedSeats=new HashMap<Integer,Map<String,Seat>>();
-Map<Integer,Booking> booked=new HashMap<Integer,Booking>();
+static Map<Integer,Booking> booked=new HashMap<Integer,Booking>();
 Map<String ,Map<String,Seat>> seatBooking=new HashMap<String,Map <String,Seat>>();
-	
+String storage="";	
 char[] array=new char[3];
 char[] array1=new char[3];
-int  businessRow=0;
-int economyRow=0;
+String bRow="";
+String eRow="";
 int count=0;
-List<String> storage=new ArrayList<>();
 public void createFolder(String fileName) throws IOException
 {
 File myFile=new File(fileName);
@@ -59,7 +51,7 @@ public void writeFile(String fileName,String flightDetails)throws IOException
 try(BufferedWriter bw=new BufferedWriter(new FileWriter(fileName)))
 {
 bw.write(flightDetails);
-
+bw.close();
 
 }	
 catch(IOException e)
@@ -74,7 +66,7 @@ public void writeSeatArrangement(String fileName,int[] array,String text,int row
 	try(BufferedWriter bw=new BufferedWriter(new FileWriter(fileName,true)))
 	{
 		bw.write(text+":"+Arrays.toString(array)+"," +rows);
-	   	
+	    bw.close();	
 	}
 	catch(IOException e)
 	{
@@ -89,10 +81,7 @@ public void  readFile(String fileName) throws FileNotFoundException, IOException
 	int num;
 	int count=0;
 	int count1=0;
-	businessRow=0;
-	economyRow=0;
-	String bRow="";
-	String eRow="";
+	
 	boolean value=false;
 	while((num=br.read())!=-1)
 	{
@@ -104,7 +93,7 @@ public void  readFile(String fileName) throws FileNotFoundException, IOException
 		if(character >='1' && character<='9' && count<3)
 		{
 			array[count++]=character;
-			System.out.println("BusinessRow"+Arrays.toString(array));
+			
 		}
 		else if(character >='0' && character<='9'&& value==false)
 		{
@@ -114,26 +103,54 @@ public void  readFile(String fileName) throws FileNotFoundException, IOException
 		else if(character >='0' && character<='9'&& value==true && count1<3)
 		{
 		 array1[count1++]=character;
-		 System.out.println("EconomyRow"+Arrays.toString(array1));
 	    }
 		else if(character >='0' && character<='9')
 		{
 			eRow+=character;
 		}
+		
 	}
-	businessRow=Integer.parseInt(bRow);
 	
 	
-	if(!eRow.isEmpty())
+	//home/thilak-inc1491/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txt
+	
+	
+	/*System.out.println(storage);
+	int index=storage.indexOf('[');
+	System.out.println(index);
+	int index1=storage.indexOf(']');
+	System.out.println(index1);
+	int index3=storage.indexOf('E');
+	String input=storage.substring(index+1,index1);
+	String input1=storage.substring(index1+1,index3);
+	input1=input1.replace(",", "");
+	System.out.println("input1 -"+input1);
+	input1=input1.trim();
+System.out.println("input1"+input1.length());
+	int rows=Integer.parseInt(input1);
+	System.out.println("row-"+/home/thilak-inc1491/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txtrows);
+	System.out.println(input);
+    //List<Integer> listObj=new ArrayList<Integer>();
+    int count=0;
+   
+	for(int i=0;i<input.length();i++)
 	{
-	economyRow=Integer.parseInt(eRow);
-	}
-	System.out.println("businessRow "+businessRow);
-	System.out.println("economyRow "+economyRow);
-	}
+		
+		if(input.charAt(i)>='1' && input.charAt(i)<='9')
+		{
+			int value=Integer.parseInt(input.charAt(i)+"");
+			System.out.println("get"+input.charAt(i));
+	//		array[i]=Character.getNumericValue(input.charAt(i));
+			array[count++]=value;
+		}
+		
+	}*/
+	System.out.println(Arrays.toString(array))	;
+	System.out.println(Arrays.toString(array1))	;
+	System.out.println(bRow);
+	System.out.println(eRow);
 }
-
-
+}
 public char[] classType1()
 {
 	return array;
@@ -142,13 +159,13 @@ public char[] classType2()
 {
 	return array1;
 }
-public int businessRow()
+public String businessRow()
 {
-	return businessRow;
+	return bRow;
 }
-public int  economyRow()
+public String economyRow()
 {
-	return economyRow;
+	return eRow;
 }
 
 public void seatArrangement(int row,String classes,char[] array){
@@ -159,7 +176,7 @@ for(int i=0;i<array.length;i++)
 {
 	column[i]=Integer.parseInt(String.valueOf(array[i]));
 }	
-System.out.println(Arrays.toString(column));
+
 
 for(int j=0;j<row;j++)
 {
@@ -169,7 +186,6 @@ for(int j=0;j<row;j++)
 	if(bookTicket==null)
 	{
 		bookTicket=new HashMap<String,Seat>();
-		seatBooking.put(flightName,bookTicket);
 		
 	}
 	for(int k=1;k<=column[0];k++)
@@ -184,7 +200,8 @@ for(int j=0;j<row;j++)
 		
 		seatObj.setSeatType("Window");
 		seatObj.setFlightName(flightName);
-	    
+	    System.out.println(String.valueOf(count));
+	    System.out.println(String.valueOf(seat));
 		seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 		
 		count1++;
@@ -198,7 +215,7 @@ for(int j=0;j<row;j++)
 			seatObj.setClassType(classes);
 			char seat=(char)count1;
 			
-			seatObj.setSeatType("Aisile");
+			seatObj.setSeatType("Aisle");
 			seatObj.setFlightName(flightName);
 			seatObj.setSeatName(String.valueOf(count)+""+String.valueOf(seat));
 			count1++;
@@ -296,7 +313,7 @@ for(int j=0;j<row;j++)
 	}
 	
 	System.out.println();
-
+	seatBooking.put(flightName,bookTicket);
  }
 	
 	
@@ -304,7 +321,7 @@ for(int j=0;j<row;j++)
 //{
 //System.out.println("listObj"+listObj.get(t));
 //}
-
+System.out.println(seatBooking);
 Map<String ,Seat> mapObj=seatBooking.get(flightName);
 System.out.println("size"+mapObj.size());
 
@@ -317,49 +334,54 @@ public void setLocation(String location)
      departure=location1.substring(index2+1);
 	location=location.substring(loc+1);
 	destination=location.trim();
-
+	System.out.println(destination);
+	System.out.println(departure);
 }
-public void filterUsingClass() throws Exception
+public void filterUsingClass(String className) throws FileNotFoundException, IOException
 {
-	
-	String sourceFile="";
-	String checkFlight="";
+	String flight1="";
   for(int i=0;i<flightInfo.size();i++)
   {
 	  String flight=flightInfo.get(i);
-	
-	 
-	System.out.println(flight);
+	  System.out.println(flight);
 	  if(flight.contains("Flight-"))
 	  {
-		  sourceFile=flight+".txt";
-		  readFile(sourceFile);
-	        if(businessRow!=0 && economyRow==0)
+		  for(int j=0;j<flight.length();j++)
 		  {
-			 checkFlight=flight;
-			}
-		  
+			  if((int)flight.charAt(j)==10)
+	    	  {
+	    		 
+	    		  flight1=flight.trim();
+	    		  flightName=flight1;
+	    		  flight1+=".txt";
+	    		  System.out.println(flight1);
+	    		  System.out.println(flightName);
+	    	  }
+	    	  else
+	    	  {
+	    		  System.out.println("details"+flight);
+	    		  flight1+=flight.charAt(j);
+	    		  
+	    	  }
+		  }
+	  
+	  String sourceFile="/home/thilak/Development/FlightBooking/"+flight1;
+		  readFile(sourceFile);
+		  if(bRow.length()!=0 && eRow.length()==0)
+		  {
+			 flightName=flight;
+		  }
 	  }  
-	 } 
-  
-if(storage.contains(checkFlight))
-{
-	System.out.println("Flight available");
-	setLocation(checkFlight);
-	availableSeats(flightName);
-}
-else
-{
-flightName=checkFlight;
-  int row=businessRow;
+	  }
+  int row=Integer.parseInt(bRow);
   seatArrangement(row,"Business",array);
-   availableSeats(flightName);
-  setLocation(flightName);
-	count=0;
+  System.out.println(flightName);
+  availableSeats(flightName);
+  System.out.println(flightName);
+	setLocation(flightName);
+	
 }
-
-}
-public void flightDetails(String fileName) throws FileNotFoundException, IOException
+public void storeFlightDetails(String fileName) throws FileNotFoundException, IOException
 {
 
 	
@@ -374,192 +396,112 @@ public void flightDetails(String fileName) throws FileNotFoundException, IOExcep
     	   if(store==10)
     	   {
     		   System.out.println(flight);
-    		   flight=flight.trim();
     		  flightInfo.add(flight) ;
     		  flight="";
     	   }
     	   
     	   
        }
+		
+		br.close();
 	}
-	
-}
-
-public void findFlight(String place)
+		
+}	
+public void filterFlightsUsingPlace(String place) throws FileNotFoundException, IOException		
 {
-	
-	for(int i=0;i<flightInfo.size();i++)
-	{
-		String details=flightInfo.get(i);
-		if(details.contains(place))
-		{
-		flightName=details;
-		}	
-}
-}
-public boolean existingFlight(String place)
-{
-	boolean value=false;
-	for(int i=0;i<storage.size();i++)
-	{
-		String info=storage.get(i);
-		if(info.contains(place))
-		{
-		value=true;
-		}
-	}
-return value;	
-}
-public void filterFlightsUsingPlace(String place) throws Exception		
-{
-	int index=place.indexOf('-');
-    departure=place.substring(0,index);
-	destination=place.substring(index+1);
-	System.out.println(storage);
-	
-if(existingFlight(place))
-{
-	System.out.println("flight");
-	findFlight(place);
-	availableSeats(flightName);
-}
-
-else
-{
+	System.out.println(flightInfo);
 	String flight="";
-	findFlight(place);
-flight=flightName+".txt";
-readFile(flight);
-seatArrangement(businessRow,"Business",array);
-availableSeats(flightName);
-if(economyRow!=0)
+for(int i=0;i<flightInfo.size();i++)
 {
-int row1=economyRow;
-System.out.println(row1);
-seatArrangement(row1,"Economy",array1);
+	System.out.println("Enter the flight details");
+			
+	String details=flightInfo.get(i);
+	System.out.println("Enter the flight details"+details);
+	
+    
+	if(details.contains(place))
+	{
+	System.out.println("details"+details);
+		  for(int j=0;j<details.length();j++)
+	      {
+	    	  if((int)details.charAt(j)==10)
+	    	  {
+	    		 
+	    		  flight=flight.trim();
+	    		  flightName=flight;
+	    		  flight+=".txt";
+	    	  }
+	    	  else
+	    	  {
+	    		  System.out.println("details"+details);
+	    		  flight+=details.charAt(j);
+	    		  
+	    	  }
+	      }
+		
+		flight="/home/thilak/Development/FlightBooking/"+flight;
+		System.out.println("flight"+flightName);
+		//flightName+="/home/thilak-inc1491/Development/FlightBooking/"+details;
+		System.out.println(flightName);
+	}
+	else
+	{
+		System.out.println("Flight is not available");
+	}
+	
+}
+int index=place.indexOf('-');
+ departure=place.substring(0,index);
+ destination=place.substring(index+1);
+System.out.println();
+//readFile("/home/thilak-inc1491/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txt");
+readFile(flight);
+int row=Integer.parseInt(bRow);
+seatArrangement(row,"Business",array);
+//availableSeats(flightName);
+if(eRow.length()!=0)
+{
+int row1=Integer.parseInt(eRow);
+seatArrangement(row1,"Economy",array);
 }
 availableSeats(flightName);
-count=0;
-}
+System.out.println(flightName);
 }
 
 public int getBookingId()
 {
 	return ++bookingId;
 }
-public int amountCalculation(String seatClass,String seatType,boolean value,Seat seatObj)
+public int amountCalculation(String seatClass,String seatType,boolean value,boolean booking)
 {
 	int amount=0;
-
+	if(booking)
+	{
+	amount+=amountCount*200;
+	}
 	if(seatClass.equals("Business"))
 	{
-	
-	amount+=amountCount*obj.getBusinessPrice();
 	amount+=2000;	
-	System.out.println(amount);
 	}
 	if(seatClass.equals("Economy"))
 	{
-		amount+=amountCount*obj.getEconomyPrice();
-		amount+=amountCount*100;
 		amount+=1000;
-		
 	}
-	if(seatType.equals("Window") ||seatType.equals("Aisile"))
+	if(seatType.equals("Window") ||seatType.equals("Aisle"))
 	{
 		amount+=100;
-		System.out.println(amount);
 	}
    if(value)
    {
 	 amount+=200;  
    }
-	seatObj.setAmount(amount);
-return amount;
+	
+	return amount;
 }
-public Flight surgePrice(int business ,int economy)
-{
-	System.out.println("Hi");
-      obj=flightObj.get(flightName);
-    if(obj==null)
-    {
-    	obj=new Flight();
-    }
-	obj.setFlightName(flightName);
-	obj.setBusinessPrice(business);
-	obj.setEconomyPrice(economy);
 
-	
-	System.out.println("obj"+obj);
-		return obj;
-}
-public void bookFlight(boolean value,String[] array,List<Passenger> passenger) throws Exception
+public void bookFlight(boolean value,String[] array,List<Passenger> passenger)
 {
-storage.add(flightName);
-   int business=0;
-   int economy=0;
-	if(flightName.contains("Chennai-Mumbai"))
-	{
-		
-	  amountCount=0;
-	   if(flightCount1!=0)
-	   {
-		  amountCount=flightCount1; 
-	     business+=200;
-		 economy+=100;
-		 surgePrice(business,economy);
-	   }
-	
-	}
-	if(flightName.contains("Chennai-Kolkata"))
-	{
-		amountCount=0;
-		if(flightCount2!=0)
-		{
-			amountCount=flightCount2;
-		 business=300;
-		 economy=150;
-		surgePrice(business,economy);
-		}
-	
-	}
-	if(flightName.contains("Chennai-Bangalore"))
-	{
-		amountCount=0;
-		if(flightCount3!=0)
-		{
-			amountCount=flightCount3;
-		 business=150;
-		 economy=100;
-   surgePrice(business,economy);
-	}
-	}
-
 Map<String,Seat> bookSeat=seatBooking.get(flightName);
-for(String seat:bookSeat.keySet())
-{
-	System.out.println("Key"+seat);
-}
-String[] classType=new String[array.length];
-System.out.println(Arrays.toString(classType));
-for(int i=0;i<array.length;i++)
-{
-if(!bookSeat.containsKey(array[i]))
-{
-	throw new Exception("Seat is not available");
-}
-Seat seatObj=bookSeat.get(array[i]);
-classType[i]=seatObj.getClassType();
-
-if(i>0)
-{
-	if(!classType[i].equals(classType[0]))
-	{
-	throw new Exception("Select same class ticket for a booking");	
-	}
-}
-}
-
 int bookingId=getBookingId();
 int amount=0;
 Booking book=booked.get(bookingId);
@@ -577,17 +519,12 @@ for(int i=0;i<array.length;i++)
     {
 	
 	Seat seatObj=bookSeat.get(array[i]);
-	if(seatObj==null)
-	{
-		throw new Exception("The seat is  not available");
-	}
 	String seatClass=seatObj.getClassType();
 	String seatType=seatObj.getSeatType();
 	String seatName=seatObj.getSeatName();
 	
 	book.list.add(seatName);
-	amount+=amountCalculation(seatClass,seatType,value,seatObj);
-	
+	amount+=amountCalculation(seatClass,seatType,value,true);
     fillSeat.put(array[i], seatObj);
     bookSeat.remove(array[i]);
     seatBooking.put(flightName, bookSeat);
@@ -598,66 +535,40 @@ for(int i=0;i<array.length;i++)
     System.out.println(meals);
     }
     }
-     
      book.setDeparture(departure);
      book.setDestination(destination);
      book.passengerList=passenger;
     occupiedSeats.put(bookingId, fillSeat);
-   
-    long time=System.currentTimeMillis();
-    Date date=new Date(time);
-    book.setDate(date);
-    book.setStatus("Booked");
+    amountCount++;
     book.setBookingId(bookingId);
     book.setMealPreference(value);
-    book.setFlightName(flightName);
+    int index=flightName.indexOf('-');
+    String departure=flightName.substring(0,index);
+    String destination=flightName.substring(index+1);
+    book.setDeparture(departure);
+    book.setDestination(destination);
     book.setAmount(amount);
     booked.put(bookingId, book);
-   payment(bookingId);
-    ticketSummary(bookingId);
-    if(flightName.contains("Chennai-Mumbai"))
-    {
-    	flightCount1++;
-    }
-    if(flightName.contains("Chennai-Kolkata"))
-    {
-    	flightCount2++;
-    }
-    if(flightName.contains("Chennai-Bangalore"))
-    {
-    	flightCount3++;
-    }
-    	
+    System.out.println(booked);
+    System.out.println(occupiedSeats);
+    payment(bookingId);
   }
 
-public void payment(int bookingId) throws Exception
+public void payment(int bookingId)
 {
-if(!booked.containsKey(bookingId))
-{
-throw new Exception("Your booking id does not exist! kindly check and try again");		
-}
 Booking book=booked.get(bookingId);
 int amount=book.getAmount();
 System.out.println("The total cost of booking is"+ amount);
-System.out.println("Happy journey!");
 }
-
-public void availableSeats(String flightName) throws Exception
+public void availableSeats(String flightName)
 {
-	
 	Map<String,Seat> seatObj=seatBooking.get(flightName);
-	if(seatObj==null)
-	{
-		throw new Exception("Flight does not exist! Kindly select flight to check seat availablity ");
-	}
 	for(Seat seats:seatObj.values())
 	{
-	System.out.print("The seat name is "+seats.getSeatName()+" ");
-	System.out.print("The seat class is "+seats.getClassType()+" ");
-	System.out.print("The seat type is "+seats.getSeatType()+" ");
-	System.out.println();
+	System.out.print("The seat name is "+seats.getSeatName());
+	System.out.print("The seat class is"+seats.getClass());
+	System.out.print("The seat type is"+seats.getSeatType());
 	}
-	
 	//System.out.println(seatBooking.get(flightName));
 	
 }
@@ -672,7 +583,7 @@ public void ticketSummary(int bookingId)
 	Booking book=booked.get(bookingId);
 	System.out.println(book);
 	int length=book.list.size();
-    System.out.println("l"+length);
+System.out.println("l"+length);
 	for(int i=0;i<length;i++)
 	{
 		
@@ -699,69 +610,60 @@ public void ticketSummary(int bookingId)
 }
 public void cancelTicket(int bookingId,String seatName)
 {
-	
 Booking book=booked.get(bookingId);
 
 boolean value=book.isMealPreference();
 int amount=book.getAmount();
-
+System.out.println("Hi");
 	if(book.list.contains(seatName))
 	{
-		
-		
+		System.out.println("List"+book.list);
+		System.out.println("Hi1");
 		int index=book.list.indexOf(seatName);
-		
-		
+		System.out.println(index);
+		System.out.println("Hi1");
 		book.list.remove(index);
-		if(book.list==null)
-		{
-			booked.remove(bookingId);
-		}
 		
 	}
 	  Map<String,Seat> filledSeat =occupiedSeats.get(bookingId);
 	  if(filledSeat.containsKey(seatName))
 	  {
-		
+		  System.out.println("Hi");
 		  Seat seats=filledSeat.get(seatName);
 		  String classType=seats.getClassType();
 		  String seatType=seats.getSeatType();
 		  String flightName=seats.getFlightName();
-		  int amount1=seats.getAmount()-200;
-		  if(meals.contains(seatName))
-		  {
-			  amount1=amount1-200;
-			  meals.remove(seatName);
-		  }
-		 		  
-		  book.setAmount(amount1);
-		  book.setStatus("Cancelled");
+		  int amount1=amountCalculation(classType,seatType,value,false)-200;
+		  amount=amount-amount1;
+		  
+		  book.setAmount(amount);
 		  filledSeat.remove(seatName);
-		   Map<String,Seat> seatAvailable=seatBooking.get(flightName);
-		   seatAvailable.put(seatName,seats );
-		   System.out.println(classType+seats);
+		  meals.remove(seatName);
+		  Map<String,Seat> seatAvailable=seatBooking.get(flightName);
+		  seatAvailable.put(classType, seats);
 		  seatBooking.put(flightName, seatAvailable);
 		  occupiedSeats.put(bookingId, filledSeat);
+		  System.out.println(occupiedSeats);
+		  System.out.println(book.list);
+		  System.out.println(booked);
+		  System.out.println(seatBooking);
 		  System.out.println("The amount refunded for your cancellation is "+amount1);
 	  }
 }
-
 public void mealsOrderedSeats()
 {
-
+	System.out.println(booked);
 	
-     
+	System.out.println(meals);
 	for(int i=0;i<meals.size();i++)
 	{
-	if(i==0)
-	{
-		System.out.println("Meals ordered seats");
+		System.out.println(meals);
+	System.out.println(i+"-"+meals.get(i));
 	}
-	System.out.println(meals.get(i));
-	}
-	System.out.println("The total meal ordereds seats is "+meals.size());
-}
 }
 
-
-
+}
+//home/thilak/Development/FlightBooking/FlightDetails.txt
+//home/thilak/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txt
+//home/thilak-inc1491/Development/FlightBooking/Flight-A112-Chennai-Mumbai.txt
+///home/thilak-inc1491/Development/FlightBooking/FlightDetails.txt

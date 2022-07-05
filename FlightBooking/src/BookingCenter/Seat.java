@@ -7,22 +7,8 @@ private String seatName;
 private String classType;
 private String seatType;
 private String flightName;
-private int amount;
-
-
-public int getAmount() {
-	return amount;
-}
-public void setAmount(int amount) {
-	this.amount = amount;
-}
-public String getFlightName() {
-	return flightName;
-}
-public void setFlightName(String flightName) {
-	this.flightName = flightName;
-}
-public String getSeatName() {
+public String getSeatName()
+{
 	return seatName;
 }
 public void setSeatName(String seatName) {
@@ -40,10 +26,16 @@ public String getSeatType() {
 public void setSeatType(String seatType) {
 	this.seatType = seatType;
 }
+
+public String getFlightName() {
+	return flightName;
+}
+public void setFlightName(String flightName) {
+	this.flightName = flightName;
+}
 @Override
 public String toString() {
-	return "Seat [seatName=" + seatName + ", classType=" + classType + ", seatType=" + seatType + ", flightName="
-			+ flightName + "]";
+	return "Seat [seatName=" + seatName + ", classType=" + classType + ", seatType=" + seatType + "]";
 }
 
 
